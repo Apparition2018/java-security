@@ -8,7 +8,7 @@
 		<version>1.5.19.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.imooc</groupId>
+	<groupId>com.mmall</groupId>
 	<artifactId>spring-security</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>

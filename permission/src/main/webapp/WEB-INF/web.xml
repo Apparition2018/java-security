@@ -13,7 +13,7 @@
 
     <!-- 监听上下文 spring bean 加载 -->
     <listener>
-        <listener-class>org.springframework.web.context.ContextCleanupListener</listener-class>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
 
     <!-- spring beans 配置文件所在木目录 -->
