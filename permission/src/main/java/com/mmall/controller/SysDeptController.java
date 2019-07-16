@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -30,6 +31,14 @@ public class SysDeptController {
     private SysTreeService sysTreeService;
 
     /**
+     * 进入部门管理页面
+     */
+    @RequestMapping("/dept.page")
+    public ModelAndView page() {
+        return new ModelAndView("dept");
+    }
+
+    /**
      * 新增部门
      */
     @RequestMapping("/save.json")
@@ -47,5 +56,15 @@ public class SysDeptController {
     public JsonData tree() {
         List<DeptLevelDto> dtoList = sysTreeService.deptTree();
         return JsonData.success(dtoList);
+    }
+
+    /**
+     * 更新部门
+     */
+    @RequestMapping("/update.json")
+    @ResponseBody
+    public JsonData updateDept(DeptParam param) {
+        sysDeptService.update(param);
+        return JsonData.success();
     }
 }
