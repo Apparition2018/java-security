@@ -10,6 +10,7 @@ import com.mmall.model.SysAcl;
 import com.mmall.param.AclParam;
 import com.mmall.util.BeanValidator;
 import com.mmall.util.IpUtil;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
@@ -22,6 +23,7 @@ import java.util.List;
  * @author Arsenal
  * created on 2019/07/18 03:52
  */
+@Service
 public class SysAclService {
 
     @Resource

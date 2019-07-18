@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class SysAclModule {
     private Integer id;
 

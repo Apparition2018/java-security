@@ -55,6 +55,7 @@ public class SysAclModuleService {
         }
         SysAclModule before = sysAclModuleMapper.selectByPrimaryKey(param.getId());
         Preconditions.checkNotNull(before, "待更新的权限模块不存在");
+
         SysAclModule after = SysAclModule.builder().id(param.getId()).name(param.getName()).parentId(param.getParentId()).seq(param.getSeq())
                 .status(param.getStatus()).remark(param.getRemark()).build();
         after.setLevel(LevelUtil.calculateLevel(getLevel(param.getParentId()), param.getParentId()));
@@ -82,7 +83,6 @@ public class SysAclModuleService {
                 sysAclModuleMapper.batchUpdateLevel(aclModuleList);
             }
         }
-
         sysAclModuleMapper.updateByPrimaryKeySelective(after);
     }
     private boolean checkExist(Integer parentId, String aclModuleName, Integer deptId) {
@@ -90,7 +90,11 @@ public class SysAclModuleService {
     }
 
     private String getLevel(Integer aclModuleId) {
-        return "";
+        SysAclModule aclModule = sysAclModuleMapper.selectByPrimaryKey(aclModuleId);
+        if (aclModule == null) {
+            return null;
+        }
+        return aclModule.getLevel();
     }
 
 }

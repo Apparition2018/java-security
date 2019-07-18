@@ -249,7 +249,7 @@
 
         // 绑定点击事件
         function bindDeptClick() {
-            // 3.删除
+            // 删除部门
             $(".dept-delete").click(function (e) {
                 e.preventDefault();
                 e.stopPropagation();
@@ -261,7 +261,7 @@
                 }
             });
 
-            // 2.部门名称
+            // 部门名称
             $(".dept-name").click(function(e) {
                 e.preventDefault();
                 e.stopPropagation();
@@ -269,7 +269,7 @@
                 handleDeptSelected(deptId);
             });
 
-            // 1.编辑
+            // 编辑按钮
             $(".dept-edit").click(function (e) {
                 e.preventDefault();
                 e.stopPropagation();
@@ -319,7 +319,7 @@
                 lastDept.removeClass("btn-yellow");
                 lastDept.removeClass("no-hover");
             }
-            // 高亮打前选中的部门
+            // 高亮当前选中的部门
             var currentDept = $("#dept_" + deptId + " .dd2-content:first");
             currentDept.addClass("btn-yellow");
             currentDept.addClass("no-hover");
@@ -330,8 +330,8 @@
         // 加载用户列表
         function loadUserList(deptId) {
             var pageSize = $("#pageSize").val();
-            var url = "sys/user/page.json?deptId=" + deptId;
-            var pageNo = $("#userPage .pageNo").val() || 1;
+            var url = "/sys/user/page.json?deptId=" + deptId;
+            var pageNo = $("#userPage").find(".pageNo").val() || 1;
             $.ajax({
                 url: url,
                 data: {
@@ -378,42 +378,13 @@
                     $("#userList").html('');
                 }
                 var pageSize = $("#pageSize").val();
-                var pageNo = $("userPage .pageNo").val() || 1;
+                var pageNo = $("#userPage").find(".pageNo").val() || 1;
                 renderPage(url, result.data.total, pageNo, pageSize, result.data.total > 0 ?
                     result.data.data.length : 0, "userPage", renderUserListAndPage);
             } else {
                 showMessage("获取部门下用户列表", result.msg, false);
             }
         }
-
-        // 新增用户
-        $(".user-add").click(function() {
-            $("#dialog-user-form").dialog({
-                model: true,
-                title: "新增用户",
-                open: function (event, ui) {
-                    $(".ui-dialog-titlebar-close", $(this).parent()).hide();
-                    optionStr = "";
-                    recursiveRenderDeptSelect(deptList, 1);
-                    $("#userForm")[0].reset();
-                    $("#deptSelectId").html(optionStr);
-                },
-                buttons: {
-                    "添加": function (e) {
-                        e.preventDefault();
-                        updateUser(true, function (data) {
-                            $("#dialog-user-form").dialog("close");
-                            loadUserList(lastClickDeptId);
-                        }, function (data) {
-                            showMessage("新增用户", data.msg, false);
-                        })
-                    },
-                    "取消": function () {
-                        $("#dialog-user-form").dialog("close");
-                    }
-                }
-            });
-        });
 
         function bindUserClick() {
             // 编辑用户
@@ -460,7 +431,36 @@
             });
         }
 
-        // 添加部门
+        // 新增用户
+        $(".user-add").click(function() {
+            $("#dialog-user-form").dialog({
+                model: true,
+                title: "新增用户",
+                open: function (event, ui) {
+                    $(".ui-dialog-titlebar-close", $(this).parent()).hide();
+                    optionStr = "";
+                    recursiveRenderDeptSelect(deptList, 1);
+                    $("#userForm")[0].reset();
+                    $("#deptSelectId").html(optionStr);
+                },
+                buttons: {
+                    "添加": function (e) {
+                        e.preventDefault();
+                        updateUser(true, function (data) {
+                            $("#dialog-user-form").dialog("close");
+                            loadUserList(lastClickDeptId);
+                        }, function (data) {
+                            showMessage("新增用户", data.msg, false);
+                        })
+                    },
+                    "取消": function () {
+                        $("#dialog-user-form").dialog("close");
+                    }
+                }
+            });
+        });
+
+        // 新增部门
         $(".dept-add").click(function () {
             $("#dialog-dept-form").dialog({
                 model: true,
@@ -515,7 +515,7 @@
         function updateUser(isCreate, successCallback, failCallback) {
             $.ajax({
                 url: isCreate ? "/sys/user/save.json" : "/sys/user/update.json",
-                data: $("#deptForm").serializeArray(),
+                data: $("#userForm").serializeArray(),
                 type: 'POST',
                 success: function (result) {
                     if (result.ret) {
