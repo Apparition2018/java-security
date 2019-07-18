@@ -312,6 +312,14 @@
                 }
             });
 
+            // 权限模块名称
+            $(".aclModule-name").click(function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                var aclModuleId = $(this).attr("data-id");
+                handleAclModuleSelected(aclModuleId);
+            });
+
             // 编辑按钮
             $(".aclModule-edit").click(function(e) {
                 e.preventDefault();
@@ -352,12 +360,28 @@
                 });
             });
 
-            // 权限模块名称
-            $(".aclModule-name").click(function(e) {
+            // 删除按钮
+            $(".aclModule-delete").click(function (e) {
                 e.preventDefault();
                 e.stopPropagation();
                 var aclModuleId = $(this).attr("data-id");
-                handleAclModuleSelected(aclModuleId);
+                var aclModuleName = $(this).attr("data-name");
+                if (confirm("确定要删除权限模块[" + aclModuleName + "]吗?")) {
+                    $.ajax({
+                        url: "/sys/aclModule/delete.json",
+                        data: {
+                            id: aclModuleId
+                        },
+                        success: function (result) {
+                            if (result.ret) {
+                                showMessage("删除权限模块[" + aclModuleName + "]", "操作成功", true);
+                                loadAclModuleTree();
+                            } else {
+                                showMessage("删除权限模块[" + aclModuleName + "]", result.msg, false);
+                            }
+                        }
+                    });
+                }
             });
         }
 
@@ -437,7 +461,28 @@
             }
         }
 
+        // 绑定点击事件
         function bindAclClick() {
+            // 获取权限点分配的用户和角色
+            $(".acl-role").click(function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                var aclId = $(this).attr("data-id");
+                $.ajax({
+                    url: "/sys/acl/acls.json",
+                    data: {
+                        aclId: aclId
+                    },
+                    success: function(result) {
+                        if (result.ret) {
+                            console.log(result)
+                        } else {
+                            showMessage("获取权限点分配的用户和角色", result.msg, false);
+                        }
+                    }
+                })
+            });
+
             // 编辑权限
             $(".acl-edit").click(function(e) {
                 e.preventDefault();

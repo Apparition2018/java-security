@@ -47,7 +47,7 @@ public class SysCoreService {
     }
 
     // 获取某用户权限列表
-    private List<SysAcl> getUserAclList(int userId) {
+    public List<SysAcl> getUserAclList(int userId) {
         // 如果是超级管理员，返回所有权限
         if (isSuperAdmin()) {
             return sysAclMapper.getAll();

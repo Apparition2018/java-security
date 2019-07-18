@@ -249,18 +249,6 @@
 
         // 绑定点击事件
         function bindDeptClick() {
-            // 删除部门
-            $(".dept-delete").click(function (e) {
-                e.preventDefault();
-                e.stopPropagation();
-                var deptId = $(this).attr("data-id");
-                var deptName = $(this).attr("data-name");
-                if (confirm("确定要删除部门【" + deptName + "】吗？")) {
-                    // TODO:
-                    console.log("delete dept: " + deptName);
-                }
-            });
-
             // 部门名称
             $(".dept-name").click(function(e) {
                 e.preventDefault();
@@ -307,8 +295,31 @@
                         }
                     }
                 });
+            });
 
-            })
+            // 删除按钮
+            $(".dept-delete").click(function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                var deptId = $(this).attr("data-id");
+                var deptName = $(this).attr("data-name");
+                if (confirm("确定要删除部门[" + deptName + "]吗?")) {
+                    $.ajax({
+                        url: "/sys/dept/delete.json",
+                        data: {
+                            id: deptId
+                        },
+                        success: function (result) {
+                            if (result.ret) {
+                                showMessage("删除部门[" + deptName + "]", "操作成功", true);
+                                loadDeptTree();
+                            } else {
+                                showMessage("删除部门[" + deptName + "]", result.msg, false);
+                            }
+                        }
+                    });
+                }
+            });
 
         }
 
@@ -386,8 +397,29 @@
             }
         }
 
+        // 绑定点击事件
         function bindUserClick() {
-            // 编辑用户
+            // 获取用户权限数据
+            $(".user-acl").click(function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                var userId = $(this).attr("data-id");
+                $.ajax({
+                    url: "/sys/user/acls.json",
+                    data: {
+                        userId: userId
+                    },
+                    success: function(result) {
+                        if (result.ret) {
+                            console.log(result)
+                        } else {
+                            showMessage("获取用户权限数据", result.msg, false);
+                        }
+                    }
+                })
+            });
+
+            // 编辑按钮
             $(".user-edit").click(function(e) {
                 e.preventDefault();
                 e.stopPropagation();
