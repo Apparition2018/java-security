@@ -23,7 +23,7 @@ public class JsonMapper {
         // config
         objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
         objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-        objectMapper.setFilters(new SimpleFilterProvider().setFailOnUnknownId(false));
+//        objectMapper.setFilters(new SimpleFilterProvider().setFailOnUnknownId(false));
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
     }
 

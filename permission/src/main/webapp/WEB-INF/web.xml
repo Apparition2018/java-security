@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns="http://java.sun.com/xml/ns/javaee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
          id="WebApp_ID" version="2.5">
 
@@ -32,7 +31,7 @@
         <!-- 可以匹配到 /login /hello，但匹配不到/ss.jsp -->
         <url-pattern>/</url-pattern>
     </servlet-mapping>
-    
+
     <!-- Encoding -->
     <filter>
         <filter-name>encodingFilter</filter-name>
@@ -89,6 +88,25 @@
     </filter>
     <filter-mapping>
         <filter-name>loginFilter</filter-name>
+        <url-pattern>/sys/*</url-pattern>
+        <url-pattern>/admin/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>aclControlFilter</filter-name>
+        <filter-class>com.mmall.filter.AclControlFilter</filter-class>
+        <init-param>
+            <!-- targetFilterLifecycle 为 true，则 spring 来管理 Filter.init() 和 Filter.destroy() -->
+            <param-name>targetFilterLifecycle</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        <init-param>
+            <param-name>exclusionUrls</param-name>
+            <param-value>/sys/user/noAuth.page,/login.page</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>aclControlFilter</filter-name>
         <url-pattern>/sys/*</url-pattern>
         <url-pattern>/admin/*</url-pattern>
     </filter-mapping>

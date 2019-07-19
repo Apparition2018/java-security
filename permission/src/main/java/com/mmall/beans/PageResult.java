@@ -20,7 +20,7 @@ import java.util.List;
 @Builder
 public class PageResult<T> {
 
-    private List<T> data = Lists.newArrayList();
+    private List<T> data;
 
-    private int total = 0;
+    private int total;
 }
