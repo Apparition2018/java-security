@@ -28,6 +28,8 @@ public class SysUserService {
 
     @Resource
     private SysUserMapper sysUserMapper;
+    @Resource
+    private SysLogService sysLogService;
 
     public void save(UserParam param) {
         BeanValidator.check(param);
@@ -51,6 +53,7 @@ public class SysUserService {
         // TODO: sendEmail
 
         sysUserMapper.insertSelective(user);
+        sysLogService.saveUserLog(null, user);
 
     }
 
@@ -70,6 +73,7 @@ public class SysUserService {
         after.setOperateIp(IpUtil.getRemoteIp(RequestHolder.getCurrentRequest()));
         after.setOperateTime(new Date());
         sysUserMapper.updateByPrimaryKeySelective(after);
+        sysLogService.saveUserLog(before, after);
     }
 
     private boolean checkEmailExist(String mail, Integer userId) {

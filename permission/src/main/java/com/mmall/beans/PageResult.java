@@ -1,6 +1,5 @@
 package com.mmall.beans;
 
-import com.google.common.collect.Lists;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;

@@ -78,9 +78,8 @@ public class SysCoreService {
     private boolean isSuperAdmin() {
         // 这里是我自己定义了一个假的超级管理员规则，实际中要根据项目进行修改
         // 可以是配置文件获取，可以指定某个用户，也可以指定某个角色
-        return false;
-//        SysUser sysUser = RequestHolder.getCurrentUser();
-//        return sysUser.getMail().contains("admin");
+        SysUser sysUser = RequestHolder.getCurrentUser();
+        return sysUser.getMail().contains("admin");
     }
 
     // 判断是否有权限访问这个url
@@ -118,7 +117,7 @@ public class SysCoreService {
     }
 
     // 获取当前用户权限列表(cache)
-    public List<SysAcl> getCurrentUserAclListFromCache() {
+    private List<SysAcl> getCurrentUserAclListFromCache() {
         int userId = RequestHolder.getCurrentUser().getId();
         String cacheValue = sysCacheService.getFromCache(CacheKeyConstants.USER_ACLS, String.valueOf(userId));
         if (StringUtils.isBlank(cacheValue)) {

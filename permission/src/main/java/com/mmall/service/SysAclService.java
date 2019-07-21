@@ -43,6 +43,7 @@ public class SysAclService {
         acl.setOperateIp(IpUtil.getRemoteIp(RequestHolder.getCurrentRequest()));
         acl.setOperateTime(new Date());
         sysAclMapper.insertSelective(acl);
+        sysLogService.saveAclLog(null ,acl);
     }
 
     public void update(AclParam param) {
@@ -60,6 +61,7 @@ public class SysAclService {
         after.setOperateTime(new Date());
 
         sysAclMapper.updateByPrimaryKeySelective(after);
+        sysLogService.saveAclLog(before ,after);
     }
 
     private boolean checkExist(int aclModuleId, String name, Integer id) {
