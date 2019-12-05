@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- logback 配置详解：https://www.cnblogs.com/cb0327/p/5759441.html -->
 <!-- 60秒扫描一次，发现文件有更新重新加载 -->
 <configuration scan="true" scanPeriod="60 seconds">
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
