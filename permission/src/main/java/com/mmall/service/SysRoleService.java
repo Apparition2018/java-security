@@ -13,7 +13,7 @@ import com.mmall.model.SysUser;
 import com.mmall.param.RoleParam;
 import com.mmall.util.BeanValidator;
 import com.mmall.util.IpUtil;
-import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
