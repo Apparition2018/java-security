@@ -10,27 +10,16 @@
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
 
-    <!-- 监听上下文 spring bean 加载 -->
-    <listener>
-        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-    </listener>
-
     <!-- spring beans 配置文件所在木目录 -->
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>classpath:applicationContext.xml</param-value>
     </context-param>
 
-    <!-- spring mvc 配置 -->
-    <servlet>
-        <servlet-name>spring</servlet-name>
-        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>spring</servlet-name>
-        <!-- 可以匹配到 /login /hello，但匹配不到/ss.jsp -->
-        <url-pattern>/</url-pattern>
-    </servlet-mapping>
+    <!-- 监听上下文 spring bean 加载 -->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
 
     <!-- Encoding -->
     <filter>
@@ -49,6 +38,17 @@
         <filter-name>encodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+
+    <!-- spring mvc 配置 -->
+    <servlet>
+        <servlet-name>spring</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>spring</servlet-name>
+        <!-- 可以匹配到 /login /hello，但匹配不到/ss.jsp -->
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
 
     <!-- druid -->
     <servlet>
