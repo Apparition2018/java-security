@@ -3,14 +3,14 @@
 
 <mapper namespace="com.mmall.demo2.mapper.UserMapper">
 
-    <resultMap id="userMap" type="com.mmall.demo2.model.User">
+    <resultMap id="userMap" type="com.ljh.model.User">
         <id property="uid" column="uid"/>
         <result property="username" column="username" />
         <result property="password" column="password" />
-        <collection property="roles" ofType="com.mmall.demo2.model.Role">
+        <collection property="roles" ofType="com.ljh.model.Role">
             <id property="rid" column="rid" />
             <result property="rname" column="rname" />
-            <collection property="permissions" ofType="com.mmall.demo2.model.Permission">
+            <collection property="permissions" ofType="com.ljh.model.Permission">
                 <id property="pid" column="pid" />
                 <result property="name" column="name" />
                 <result property="url" column="url" />

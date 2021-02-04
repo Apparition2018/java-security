@@ -8,7 +8,7 @@
         <version>2.3.5.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.mmall</groupId>
+    <groupId>com.ljh</groupId>
     <artifactId>apache-shiro</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
