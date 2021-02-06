@@ -18,6 +18,7 @@ import javax.sql.DataSource;
 
 /**
  * DruidConfiguration
+ * http://localhost:8080/druid/login.html
  *
  * @author Arsenal
  * created on 2019/6/28 1:24
@@ -34,7 +35,7 @@ public class DruidConfiguration {
         servletRegistrationBean.addInitParameter("deny", "192.168.1.100");
         //登录查看信息的账号密码.
         servletRegistrationBean.addInitParameter("loginUsername", "druid");
-        servletRegistrationBean.addInitParameter("loginPassword", "12345678");
+        servletRegistrationBean.addInitParameter("loginPassword", "123456");
         //是否能够重置数据.
         servletRegistrationBean.addInitParameter("resetEnable", "false");
         return servletRegistrationBean;
@@ -55,10 +56,9 @@ public class DruidConfiguration {
         return new PersistenceExceptionTranslationPostProcessor();
     }
 
-    //配置数据库的基本链接信息
     @Bean(name = "dataSource")
     @Primary
-    @ConfigurationProperties(prefix = "spring.datasource")    //可以在application.properties中直接导入
+    @ConfigurationProperties(prefix = "spring.datasource")
     public DataSource dataSource() {
         return DataSourceBuilder.create().type(com.alibaba.druid.pool.DruidDataSource.class).build();
     }

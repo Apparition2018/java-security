@@ -1,7 +1,6 @@
 package com.ljh;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PostFilter;
@@ -19,7 +18,7 @@ import java.util.List;
  * 1.提供了一套安全框架，而且这个框架是可以用的
  * 2.提供了很多用户认证的功能，实现相关接口即可，节约大量开发工作
  * 3.基于spring，易于集成到spring项目中，且封装了许多方法
- *
+ * <p>
  * Spring Security 缺点：
  * 1.配置文件多，角色被"编码"到配置文件和源文件中，RBAC不明显
  * 2.对于系统中用户、角色、权限之间的关系，没有可操作的界面
@@ -27,12 +26,11 @@ import java.util.List;
  */
 @SpringBootApplication
 @RestController
-@EnableAutoConfiguration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class DemoApplication {
+public class SecurityApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(DemoApplication.class, args);
+        SpringApplication.run(SecurityApplication.class, args);
     }
 
     @RequestMapping("/")

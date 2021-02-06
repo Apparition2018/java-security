@@ -6,12 +6,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan
-@MapperScan(basePackages = {"com.mmall.demo2.mapper"})
-public class Demo2Application {
+@MapperScan(basePackages = {"com.ljh.mapper"})
+public class ShiroApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Demo2Application.class, args);
+		SpringApplication.run(ShiroApplication.class, args);
 	}
 
 }

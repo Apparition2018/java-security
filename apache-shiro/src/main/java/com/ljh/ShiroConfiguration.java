@@ -21,8 +21,10 @@ import java.util.LinkedHashMap;
 @Configuration
 public class ShiroConfiguration {
 
-    // 自定义shiroFilter
-    @Bean("shiroFilter")
+    /**
+     * ShiroFilter
+     */
+    @Bean
     public ShiroFilterFactoryBean shiroFilter(@Qualifier("securityManager") SecurityManager manager) {
         ShiroFilterFactoryBean bean = new ShiroFilterFactoryBean();
         bean.setSecurityManager(manager);
@@ -31,40 +33,52 @@ public class ShiroConfiguration {
         bean.setSuccessUrl("/index");
         bean.setUnauthorizedUrl("/unauthorized");
 
-        // key 访问的请求，value 使用什么拦截器
+        // key：访问的请求，value：使用什么拦截器 */
         LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
         // 请查看 DefaultFilter
+        // FormAuthenticationFilter 需要身份验证
         filterChainDefinitionMap.put("/index", "authc");
-        filterChainDefinitionMap.put("/login", "anon");      // AnonymousFilter 不需要做身份验证
+        // AnonymousFilter 不需要做身份验证
+        filterChainDefinitionMap.put("/login", "anon");
         filterChainDefinitionMap.put("/loginUser", "anon");
         filterChainDefinitionMap.put("/druid/**", "anon");
+        // RolesAuthorizationFilter 需要某个角色才能访问
         filterChainDefinitionMap.put("/admin", "roles[admin]");
+        // PermissionsAuthorizationFilter 需要某个权限才能访问
         filterChainDefinitionMap.put("/edit", "perms[edit]");
-        filterChainDefinitionMap.put("/**", "user");         // UserFilter 判断是否登录过
+        // UserFilter 判断是否登录过
+        filterChainDefinitionMap.put("/**", "user");
         bean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 
         return bean;
     }
 
-    // 自定义securityManager
-    @Bean("securityManager")
+    /**
+     * SecurityManager
+     */
+    @Bean
     public SecurityManager securityManager(@Qualifier("authRealm") AuthRealm authRealm) {
         DefaultWebSecurityManager manager = new DefaultWebSecurityManager();
         manager.setRealm(authRealm);
         return manager;
     }
 
-    // 自定义authRealm
-    @Bean("authRealm")
+    /**
+     * 自定义的 AuthorizingRealm
+     */
+    @Bean
     public AuthRealm authRealm(@Qualifier("credentialMatcher") CredentialMatcher matcher) {
         AuthRealm authRealm = new AuthRealm();
-        authRealm.setCacheManager(new MemoryConstrainedCacheManager()); // 缓存
+        // 缓存
+        authRealm.setCacheManager(new MemoryConstrainedCacheManager());
         authRealm.setCredentialsMatcher(matcher);
         return authRealm;
     }
 
-    // 自定义密码比较器
-    @Bean("credentialMatcher")
+    /**
+     * 自定义的密码校验
+     */
+    @Bean
     public CredentialMatcher credentialMatcher() {
         return new CredentialMatcher();
     }

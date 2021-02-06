@@ -1,6 +1,5 @@
 package com.ljh;
 
-
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 

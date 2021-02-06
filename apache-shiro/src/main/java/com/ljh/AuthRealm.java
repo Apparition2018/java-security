@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * AuthRealm
+ * 自定义 认证 和 授权 Realm
  *
  * @author Arsenal
  * created on 2019/6/27 2:02
@@ -27,16 +27,25 @@ public class AuthRealm extends AuthorizingRealm {
     @Autowired
     private UserService userService;
 
+    // 认证
+    @Override
+    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
+        UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) authenticationToken;
+        String username = usernamePasswordToken.getUsername();
+        User user = userService.findByUsername(username);
+        return new SimpleAuthenticationInfo(user, user.getPassword(), this.getClass().getName());
+    }
+
     // 授权
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         User user = (User) principalCollection.fromRealm(this.getClass().getName()).iterator().next();
         List<String> permissionList = new ArrayList<>();
-        List<String> roleNameList = new ArrayList<>();
+        List<String> roleList = new ArrayList<>();
         Set<Role> roleSet = user.getRoles();
         if (CollectionUtils.isNotEmpty(roleSet)) {
             for (Role role : roleSet) {
-                roleNameList.add(role.getRname());
+                roleList.add(role.getRname());
                 Set<Permission> permissionSet = role.getPermissions();
                 if (CollectionUtils.isNotEmpty(permissionSet)) {
                     for (Permission permission : permissionSet) {
@@ -47,16 +56,7 @@ public class AuthRealm extends AuthorizingRealm {
         }
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         info.addStringPermissions(permissionList);
-        info.addRoles(roleNameList);
+        info.addRoles(roleList);
         return info;
-    }
-
-    // 认证登录
-    @Override
-    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
-        UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) authenticationToken;
-        String username = usernamePasswordToken.getUsername();
-        User user = userService.findByUsername(username);
-        return new SimpleAuthenticationInfo(user, user.getPassword(), this.getClass().getName());
     }
 }

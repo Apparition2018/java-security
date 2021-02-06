@@ -37,7 +37,7 @@
    - 所有与安全有关的操作都会与 SecurityManager 交互；Shiro 的核心，也负责与其它组件进行交互
    - 前端控制器
 3. Realm                域
-   - Shiro 从 Realm 认证和授权的相应数据（用户、角色、权限），并完成相应的认证和授权操作
+   - Shiro 从 Realm 获取认证和授权的相关数据（用户、角色、权限），并完成相应的认证和授权操作
    - 安全数据源
 ```
 ---
@@ -94,4 +94,37 @@ Subject → Role → Permission
 ## Realm
 ![Realm](./doc/Realm.png)
 
+---
+## 主要代码编写
+1. User, Role, Permission
+   - 自定义 用户，角色，权限
+2. AuthRealm
+   - 自定义认证和授权的Realm，继承于 AuthorizingRealm
+3. CredentialMatcher
+   - 自定义密码校验规则，继承于 SimpleCredentialsMatcher
+4. ShiroConfiguration
+   - CredentialMatcher
+   - AuthRealm
+      - 注入 CredentialMatcher
+      - 设置 CacheManager
+   - SecurityManager
+      - 注入 AuthRealm
+   - ShiroFilterFactoryBean
+      - 注入 SecurityManager
+      - 设置 url，如 loginUrl，successUrl，unauthorizedUrl 等
+      - 设置 FilterChainDefinition，哪个请求使用哪个 Filter
+   - 注解权限控制 @RequiresRoles，@RequiresPermissions 等
+      - DefaultAdvisorAutoProxyCreator，代理生成器，相当于切面
+      - AuthorizationAttributeSourceAdvisor，相当于切点
+         - 注入 SecurityManager
+>#### 参考网站
+>1. [Shiro 权限管理框架（一）：Shiro的基本使用](https://www.guitu18.com/post/2019/07/26/43.html)
+>2. [Shiro 权限管理框架（二）：Shiro结合Redis实现分布式环境下的Session共享](https://www.guitu18.com/post/2019/07/28/44.html)
+>3. [Shiro 权限管理框架（三）：Shiro中权限过滤器的初始化流程和实现原理](https://www.guitu18.com/post/2019/08/01/45.html)
+>4. [Shiro 权限管理框架（四）：深入分析 Shiro 中的 Session 管理](https://www.guitu18.com/post/2019/08/08/46.html)
+>5. [Shiro 权限管理框架（五）：自定义 Filter 实现及其问题排查记录](https://www.guitu18.com/post/2020/01/06/64.html)
+---
+## 项目启动遇到的问题
+1. [找不到 jsp 页面](https://www.pianshen.com/article/733790820/)
+2. [maven 多子模块项目整合 jsp](https://blog.csdn.net/hp_yangpeng/article/details/89067596)
 ---
