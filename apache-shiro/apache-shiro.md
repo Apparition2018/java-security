@@ -109,6 +109,8 @@ Subject → Role → Permission
       - 设置 CacheManager
    - SecurityManager
       - 注入 AuthRealm
+      - 设置 CacheManager
+      - 设置 SessionManager
    - ShiroFilterFactoryBean
       - 注入 SecurityManager
       - 设置 url，如 loginUrl，successUrl，unauthorizedUrl 等
