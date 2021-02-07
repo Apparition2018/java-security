@@ -14,7 +14,7 @@
     1. Authentication       身份认证
     2. Authorization        授权
     3. Session Management   会话管理
-    4. Cryptography         密码系统
+    4. Cryptography         加密
     ```
 2. Supporting Features
     ```
@@ -58,7 +58,7 @@
 7. Cache Manger         缓存管理器
 8. Pluggable Realms     可扩展领域
    - 可配置1个或多个，如果只有1个 Realm，则无需配置 AuthenticationStrategy ?
-9. Cryptography         密码系统
+9. Cryptography         加密
 ```
 ---
 ## Authentication
@@ -109,6 +109,8 @@ Subject → Role → Permission
       - 设置 CacheManager
    - SecurityManager
       - 注入 AuthRealm
+      - 设置 CacheManager
+      - 设置 SessionManager
    - ShiroFilterFactoryBean
       - 注入 SecurityManager
       - 设置 url，如 loginUrl，successUrl，unauthorizedUrl 等
