@@ -1,5 +1,7 @@
 package com.ljh.shiro.realm;
 
+import com.ljh.dao.UserDao;
+import com.ljh.vo.User;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -11,10 +13,8 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import javax.annotation.Resource;
+import java.util.*;
 
 /**
  * CustomRealm
@@ -23,15 +23,18 @@ import java.util.Set;
  * created on 2021/2/7 1:05
  */
 public class CustomRealm extends AuthorizingRealm {
-    
-    Map<String, String> userMap = new HashMap<>(16); 
-    
+
+    @Resource
+    private UserDao userDao;
+
+    Map<String, String> userMap = new HashMap<>(16);
+
     {
         // 凭证加盐再md5
         userMap.put("Mark", new Md5Hash("123456", "salt").toString());
         super.setName("customRealm");
     }
-    
+
     // 授权
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
@@ -48,18 +51,18 @@ public class CustomRealm extends AuthorizingRealm {
 
     /**
      * 模拟数据库查询角色
+     *
      * @param userName 用户名
      * @return 角色集合
      */
     private Set<String> getRolesByUserName(String userName) {
-        Set<String> sets = new HashSet<>();
-        sets.add("admin");
-        sets.add("user");
-        return sets;
+        List<String> list = userDao.queryRolesByUserName(userName);
+        return new HashSet<>(list);
     }
-    
+
     /**
      * 模拟数据库查询权限
+     *
      * @param roles 角色集合
      * @return 权限集合
      */
@@ -73,17 +76,17 @@ public class CustomRealm extends AuthorizingRealm {
     // 认证
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
-        
+
         // 1.从主体传过来的认证信息中，获得用户名
         String userName = (String) authenticationToken.getPrincipal();
-        
+
         // 2.通过用户名到数据库中获得凭证
         String password = getPasswordByUserName(userName);
         if (password == null) {
             return null;
         }
 
-        SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo("Mark", password, "customRealm");
+        SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(userName, password, "customRealm");
         // 设置凭证的盐
         authenticationInfo.setCredentialsSalt(ByteSource.Util.bytes("salt"));
         return authenticationInfo;
@@ -91,11 +94,22 @@ public class CustomRealm extends AuthorizingRealm {
 
     /**
      * 模拟数据库查询凭证
+     *
      * @param userName 用户名
      * @return 凭证
      */
     private String getPasswordByUserName(String userName) {
-        return userMap.get(userName);
+        User user = userDao.getUserByUserName(userName);
+        if (user != null) {
+            return user.getPassword();
+        }
+        return null;
+        // return userMap.get(userName);
+    }
+
+    public static void main(String[] args) {
+        Md5Hash md5Hash = new Md5Hash("123", ByteSource.Util.bytes("salt"));
+        System.out.println(md5Hash);
     }
 
 }

@@ -16,7 +16,7 @@
     <modules>
         <module>spring-security</module>
         <module>apache-shiro</module>
-        <module>apache-shiro-demo</module>
+        <module>apache-shiro-spring</module>
         <module>permission</module>
     </modules>
 
