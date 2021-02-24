@@ -17,7 +17,7 @@
         <mysql.version>8.0.23</mysql.version>
         <druid.version>1.2.5</druid.version>
         <shiro.version>1.7.1</shiro.version>
-        <logback.version>1.2.3</logback.version>
+        <slf4j.version>1.7.26</slf4j.version>
         <junit.version>4.13.1</junit.version>
     </properties>
 
@@ -57,10 +57,9 @@
         </dependency>
 
         <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>${logback.version}</version>
-            <scope>test</scope>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-nop</artifactId>
+            <version>${slf4j.version}</version>
         </dependency>
 
         <dependency>

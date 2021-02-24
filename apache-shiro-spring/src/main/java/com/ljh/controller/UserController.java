@@ -31,6 +31,9 @@ public class UserController {
         } catch (AuthenticationException e) {
             return e.getMessage();
         }
+        if (subject.hasRole("admin")) {
+            System.out.println("有 admin 权限");
+        }
         return "登录成功";
     }
 }

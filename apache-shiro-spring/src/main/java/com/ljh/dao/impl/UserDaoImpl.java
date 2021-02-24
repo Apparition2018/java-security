@@ -28,7 +28,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public User getUserByUserName(String userName) {
 
-        String sql = "select username, password from users where username = ?";
+        String sql = "select username, password from user where username = ?";
         List<User> list = jdbcTemplate.query(sql, (resultSet, i) -> {
             User user = new User();
             user.setUsername(resultSet.getString("username"));
@@ -43,7 +43,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public List<String> queryRolesByUserName(String userName) {
-        String sql = "select role_name from user_roles where username = ?";
+        String sql = "select role_name from user_role where username = ?";
         return jdbcTemplate.query(sql, ((resultSet, i) -> resultSet.getString("role_name")), userName);
     }
 }
