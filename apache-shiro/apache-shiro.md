@@ -119,6 +119,9 @@ Subject → Role → Permission
       - DefaultAdvisorAutoProxyCreator，代理生成器，相当于切面
       - AuthorizationAttributeSourceAdvisor，相当于切点
          - 注入 SecurityManager
+5. 注解
+   - @RequiresRoles
+   - @RequiresPermissions
 >#### 参考网站
 >1. [Shiro 权限管理框架（一）：Shiro的基本使用](https://www.guitu18.com/post/2019/07/26/43.html)
 >2. [Shiro 权限管理框架（二）：Shiro结合Redis实现分布式环境下的Session共享](https://www.guitu18.com/post/2019/07/28/44.html)

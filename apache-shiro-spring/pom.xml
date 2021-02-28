@@ -16,7 +16,8 @@
         <spring.version>5.3.4</spring.version>
         <mysql.version>8.0.23</mysql.version>
         <druid.version>1.2.5</druid.version>
-        <shiro.version>1.7.1</shiro.version>
+        <aspectj.version>1.9.6</aspectj.version>
+        <shiro-spring.version>1.7.1</shiro-spring.version>
         <slf4j.version>1.7.26</slf4j.version>
         <junit.version>4.13.1</junit.version>
     </properties>
@@ -51,9 +52,15 @@
         </dependency>
 
         <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>${aspectj.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-spring</artifactId>
-            <version>${shiro.version}</version>
+            <version>${shiro-spring.version}</version>
         </dependency>
 
         <dependency>

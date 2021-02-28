@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * UserDaoImpl
@@ -43,7 +44,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public List<String> queryRolesByUserName(String userName) {
-        String sql = "select role_name from user_role where username = ?";
-        return jdbcTemplate.query(sql, ((resultSet, i) -> resultSet.getString("role_name")), userName);
+        String sql = "select rname from user u join user_role ur on u.uid = ur.uid join role r on ur.rid = r.rid where username = ?";
+        return jdbcTemplate.query(sql, ((resultSet, i) -> resultSet.getString("rname")), userName);
     }
 }

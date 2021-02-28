@@ -56,8 +56,8 @@ public class CustomRealm extends AuthorizingRealm {
      * @return 角色集合
      */
     private Set<String> getRolesByUserName(String userName) {
-        List<String> list = userDao.queryRolesByUserName(userName);
-        return new HashSet<>(list);
+        List<String> roles = userDao.queryRolesByUserName(userName);
+        return new HashSet<>(roles);
     }
 
     /**
