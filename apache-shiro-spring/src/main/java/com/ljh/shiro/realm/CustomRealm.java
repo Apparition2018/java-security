@@ -56,6 +56,7 @@ public class CustomRealm extends AuthorizingRealm {
      * @return 角色集合
      */
     private Set<String> getRolesByUserName(String userName) {
+        System.out.println("从数据库中获取角色数据");
         List<String> roles = userDao.queryRolesByUserName(userName);
         return new HashSet<>(roles);
     }
@@ -68,8 +69,8 @@ public class CustomRealm extends AuthorizingRealm {
      */
     private Set<String> getPermissionsByRoles(Set<String> roles) {
         Set<String> sets = new HashSet<>();
-        sets.add("user:delete");
-        sets.add("user:add");
+        sets.add("delete");
+        sets.add("add");
         return sets;
     }
 

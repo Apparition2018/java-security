@@ -8,7 +8,7 @@
 5. [shiro笔记五](https://blog.csdn.net/u011781521/article/details/75172983)
 ---
 ## 主要功能
-![功能和特征](./doc/功能和特征.png)
+![功能和特征](doc/Concerns&Features.png)
 1. Primary Concerns
     ```
     1. Authentication       身份认证
@@ -61,11 +61,11 @@
 9. Cryptography         加密
 ```
 ---
-## Authentication
+## Authentication 认证
 ![Authentication 流程图](./doc/Authentication.png)
 
 ---
-## Authorization
+## Authorization 授权
 ![Authorization 流程图](./doc/Authorization.png)
 
 ```
@@ -79,17 +79,43 @@ Subject → Role → Permission
 ---
 ## [Filter](https://www.cnblogs.com/yoohot/p/6085830.html)
 ![Filter](./doc/Filter.png)
-
+1. [内置 Filter](https://blog.csdn.net/l_cl_java/article/details/80425396)
+    1. 认证 Filter：
+    ```
+        anon        AnonymousFilter                 可匿名
+        authc       FormAuthenticationFilter        身份认证
+        authBasic   BasicHttpAuthenticationFilter   HTTP Basic 认证
+        user        UserFilter                      当前存在用户；开启 RememberMe 后，关闭浏览器重新访问是 user，而不是 authc
+        logout      LogoutFilter                    退出登录
+    ```
+    2. 授权 Filter：
+    ```
+        perms       PermissionsAuthorizationFilter  权限
+        roles       RolesAuthorizationFilter        角色
+        ssl         SslFilter                       HTTPS
+        port        PortFilter                      端口
+        rest        HttpMethodPermissionFilter      HttpMethod；如 rest[user] 相当于 perms[user:get]，perms[user:post] 等
+    ```
+2. 自定义 Filter
+    1. 认证 Filter extends AuthenticatingFilter
+    2. 授权 Filter extends AuthorizationFilter
 ---
 ## Session Manager
-![Session Manager & Security Manager](./doc/Session%20Manager%20&%20Security%20Manager.png)
+![Session Manager & Security Manager](./doc/SessionManager&SecurityManager.png)
 - Shiro 提供了完整的企业级会话管理功能，不依赖于底层容器 (Tomcat)，JavaSE JavaEE 环境都可以使用。
 - 提供了会话管理，会话事监听，会话存储/持久化，容器无关的集群，失效过期支持，对Web的透明支持，SSO单点登录等
+- 自定义 SessionManager extends DefaultWebSessionManager
+---
+## Session Dao
+![Session Dao](./doc/SessionDao.png)
+- 自定义 SessionDao extends AbstractSessionDAO
+- 第三方 SessionDao 可使用 org.crazycake:shiro-redis
 ---
 ## Cache Manager
-![Cache Manager](./doc/Cache%20Manager%201.png)
-![Cache Manager](./doc/Cache%20Manager%202.png)
-
+![Cache Manager](./doc/CacheManager1.png)
+![Cache Manager](./doc/CacheManager2.png)
+- 自定义 CacheManager extends CacheManager
+- 第三方 CacheManager 可使用 org.crazycake:shiro-redis
 ---
 ## Realm
 ![Realm](./doc/Realm.png)
@@ -97,28 +123,34 @@ Subject → Role → Permission
 ---
 ## 主要代码编写
 1. User, Role, Permission
-   - 自定义 用户，角色，权限
+    - 自定义 用户，角色，权限 
 2. AuthRealm
-   - 自定义认证和授权的Realm，继承于 AuthorizingRealm
+    - 自定义认证和授权的Realm，继承于 AuthorizingRealm
 3. CredentialMatcher
-   - 自定义密码校验规则，继承于 SimpleCredentialsMatcher
+    - 自定义密码校验规则，继承于 SimpleCredentialsMatcher
 4. ShiroConfiguration
-   - CredentialMatcher
-   - AuthRealm
-      - 注入 CredentialMatcher
-      - 设置 CacheManager
-   - SecurityManager
-      - 注入 AuthRealm
-      - 设置 CacheManager
-      - 设置 SessionManager
-   - ShiroFilterFactoryBean
-      - 注入 SecurityManager
-      - 设置 url，如 loginUrl，successUrl，unauthorizedUrl 等
-      - 设置 FilterChainDefinition，哪个请求使用哪个 Filter
-   - 注解权限控制 @RequiresRoles，@RequiresPermissions 等
-      - DefaultAdvisorAutoProxyCreator，代理生成器，相当于切面
-      - AuthorizationAttributeSourceAdvisor，相当于切点
-         - 注入 SecurityManager
+    - CredentialsMatcher
+    - AuthRealm
+        - 设置 CredentialsMatcher
+        - 设置 CacheManager
+    - SessionDao（可选）
+    - SessionManager（可选）
+        - 设置 SessionDao
+    - CacheManager（可选）
+    - RememberMeManager（可选）
+    - SecurityManager
+        - 设置 AuthRealm
+        - 设置 SessionManager（可选）
+        - 设置 CacheManager（可选）
+        - 设置 RememberMeManager（可选）
+    - ShiroFilterFactoryBean
+        - 注入 SecurityManager
+        - 设置 url，如 loginUrl，successUrl，unauthorizedUrl 等
+        - 设置 FilterChainDefinition，哪个请求使用哪个 Filter
+    - 注解权限控制 @RequiresRoles，@RequiresPermissions 等
+        - DefaultAdvisorAutoProxyCreator，代理生成器，相当于切面
+        - AuthorizationAttributeSourceAdvisor，相当于切点
+            - 注入 SecurityManager
 5. 注解
    - @RequiresRoles
    - @RequiresPermissions

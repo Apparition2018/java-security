@@ -38,7 +38,7 @@ public class ShiroConfiguration {
         // 请查看 DefaultFilter
         // FormAuthenticationFilter 需要身份验证
         filterChainDefinitionMap.put("/index", "authc");
-        // AnonymousFilter 不需要做身份验证
+        // AnonymousFilter 不需要身份验证
         filterChainDefinitionMap.put("/login", "anon");
         filterChainDefinitionMap.put("/loginUser", "anon");
         filterChainDefinitionMap.put("/druid/**", "anon");
@@ -67,7 +67,7 @@ public class ShiroConfiguration {
      * 自定义的 AuthorizingRealm
      */
     @Bean
-    public AuthRealm authRealm(@Qualifier("credentialMatcher") CredentialMatcher matcher) {
+    public AuthRealm authRealm(@Qualifier("credentialsMatcher") CredentialsMatcher matcher) {
         AuthRealm authRealm = new AuthRealm();
         // 缓存
         authRealm.setCacheManager(new MemoryConstrainedCacheManager());
@@ -79,8 +79,8 @@ public class ShiroConfiguration {
      * 自定义的密码校验
      */
     @Bean
-    public CredentialMatcher credentialMatcher() {
-        return new CredentialMatcher();
+    public CredentialsMatcher credentialsMatcher() {
+        return new CredentialsMatcher();
     }
 
     @Bean

@@ -11,7 +11,7 @@ import org.apache.shiro.authc.credential.SimpleCredentialsMatcher;
  * @author Arsenal
  * created on 2019/6/27 2:17
  */
-public class CredentialMatcher extends SimpleCredentialsMatcher {
+public class CredentialsMatcher extends SimpleCredentialsMatcher {
 
     @Override
     public boolean doCredentialsMatch(AuthenticationToken token, AuthenticationInfo info) {

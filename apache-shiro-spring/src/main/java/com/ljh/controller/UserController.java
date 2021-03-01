@@ -4,8 +4,6 @@ import com.ljh.vo.User;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,6 +27,7 @@ public class UserController {
         Subject subject = SecurityUtils.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), user.getPassword());
         try {
+            token.setRememberMe(user.isRememberMe());
             subject.login(token);
         } catch (AuthenticationException e) {
             return e.getMessage();
@@ -39,17 +38,29 @@ public class UserController {
         return "登录成功";
     }
 
-    @RequiresRoles("admin")
-    @RequestMapping(value = "/testRole", method = RequestMethod.GET)
+    // @RequiresRoles("admin")
+    @RequestMapping(value = "/testRoles", method = RequestMethod.GET)
     @ResponseBody
-    public String testRole() {
-        return "testRole success";
+    public String testRoles() {
+        return "testRoles success";
     }
 
-    @RequiresPermissions("admin2")
-    @RequestMapping(value = "/testPermission", method = RequestMethod.GET)
+    @RequestMapping(value = "/testRoles2", method = RequestMethod.GET)
     @ResponseBody
-    public String testRole2() {
-        return "testPermission success";
+    public String testRoles2() {
+        return "testRoles2 success";
+    }
+
+    // @RequiresPermissions("add")
+    @RequestMapping(value = "/testPerms", method = RequestMethod.GET)
+    @ResponseBody
+    public String testPerms() {
+        return "testPerms success";
+    }
+
+    @RequestMapping(value = "/testPerms2", method = RequestMethod.GET)
+    @ResponseBody
+    public String testPerms2() {
+        return "testPerms2 success";
     }
 }
