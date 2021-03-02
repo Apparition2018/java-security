@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- logback 配置详解：https://www.cnblogs.com/cb0327/p/5759441.html -->
+<!-- 60秒扫描一次，发现文件有更新重新加载 -->
+<configuration scan="true" scanPeriod="60 seconds">
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+<!--    &lt;!&ndash; RollingFileAppender 根据设置对日志文件进行压缩归档并生成新的日志文件 &ndash;&gt;-->
+<!--    <appender name="permission" class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+<!--        &lt;!&ndash; 日志路径和名称 &ndash;&gt;-->
+<!--        <file>${catalina.home}/logs/permission.log</file>-->
+<!--        &lt;!&ndash; 压缩规则-->
+<!--        	TimeBasedRollingPolicy 根据时间进行日志压缩 &ndash;&gt;-->
+<!--        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
+<!--            &lt;!&ndash; 压缩文件后的名字 &ndash;&gt;-->
+<!--            <fileNamePattern>${catalina.home}/logs/permission.%d{yyyy-MM-dd}.log.gz</fileNamePattern>-->
+<!--        </rollingPolicy>-->
+<!--        <layout class="ch.qos.logback.classic.PatternLayout">-->
+<!--            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n</pattern>-->
+<!--        </layout>-->
+<!--    </appender>-->
+<!--    &lt;!&ndash; logger 和紧邻上面的 appender 一一对应&ndash;&gt;-->
+<!--    <logger name="xxx" level="INFO">-->
+<!--        <appender-ref ref="permission"/>-->
+<!--    </logger>-->
+
+    <!-- TRACE < DEBUG < INFO < WARN < ERROR -->
+    <root level="INFO">
+        <appender-ref ref="STDOUT" />
+    </root>
+</configuration>
