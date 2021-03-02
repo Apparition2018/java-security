@@ -17,7 +17,7 @@
         <module>spring-security</module>
         <module>apache-shiro</module>
         <module>apache-shiro-2</module>
-        <module>permission</module>
+        <module>permission-management</module>
     </modules>
 
 </project>
