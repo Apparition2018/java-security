@@ -9,23 +9,18 @@
     <description>Demo project for Apache Shiro</description>
 
     <properties>
-        <spring.version>5.3.8</spring.version>
-        <mysql.version>8.0.25</mysql.version>
+        <spring.version>5.3.9</spring.version>
+        <mysql.version>8.0.26</mysql.version>
         <druid.version>1.2.6</druid.version>
-        <jedis.version>3.6.1</jedis.version>
+        <jedis.version>3.6.3</jedis.version>
         <aspectj.version>1.9.7</aspectj.version>
         <shiro-spring.version>1.7.1</shiro-spring.version>
         <servlet-api.version>4.0.1</servlet-api.version>
-        <slf4j.version>1.7.31</slf4j.version>
+        <slf4j.version>1.7.32</slf4j.version>
         <junit.version>4.13.2</junit.version>
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
