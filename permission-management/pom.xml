@@ -16,6 +16,7 @@
         <mybatis.veresion>3.5.7</mybatis.veresion>
         <mybatis-spring.version>2.0.6</mybatis-spring.version>
         <jedis.version>3.6.3</jedis.version>
+        <commons-lang3.version>3.12.0</commons-lang3.version>
         <commons-collections4.version>4.4</commons-collections4.version>
         <commons-codec.version>1.15</commons-codec.version>
         <commons-email.version>1.5</commons-email.version>
@@ -72,6 +73,7 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
+            <version>${commons-lang3.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
