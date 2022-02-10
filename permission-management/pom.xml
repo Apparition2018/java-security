@@ -15,7 +15,8 @@
         <druid.version>1.2.8</druid.version>
         <mybatis.veresion>3.5.9</mybatis.veresion>
         <mybatis-spring.version>2.0.7</mybatis-spring.version>
-        <jedis.version>4.1.1</jedis.version>
+        <!-- 不更新版本，ShardedJedisPool, Sharded, ShardedJedis, BinaryShardedJedis, ShardInfo, JedisShardInfo 下个主要版本被移除 -->
+        <jedis.version>3.7.1</jedis.version>
         <commons-lang3.version>3.12.0</commons-lang3.version>
         <commons-collections4.version>4.4</commons-collections4.version>
         <commons-codec.version>1.15</commons-codec.version>
@@ -123,17 +124,6 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
-    <repositories>
-        <repository>
-            <id>public</id>
-            <name>local private nexus</name>
-            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-        </repository>
-    </repositories>
 
     <dependencyManagement>
         <dependencies>

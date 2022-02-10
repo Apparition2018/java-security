@@ -58,22 +58,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
+                // CSRF禁用
+                .csrf().disable()
+                // 异常处理
+                .exceptionHandling()
+                // 拒绝访问页面
+                .accessDeniedPage("/403.html");
+        httpSecurity
                 // 支持基于表单的身份验证
                 .formLogin()
                 .loginPage("/login.html")
                 .usernameParameter("username")
                 .passwordParameter("password")
-                .loginProcessingUrl("/authentication/login/process")
-                .failureForwardUrl("/authentication/login?failed")
-                .successForwardUrl("/test/index")
+                .loginProcessingUrl("/user/login")
+                .failureUrl("/authentication/login?failed")
+                .defaultSuccessUrl("/test/index")
                 .permitAll();
         httpSecurity
-                // CSRF禁用
-                .csrf().disable()
                 // 过滤请求
                 .authorizeRequests()
                 .antMatchers("/", "/test/hello", "/user/login").anonymous()
                 .antMatchers("/test/index").hasAnyAuthority("admin")
+                .antMatchers("/test/index").hasAnyRole("sale")
                 // 除上面外的所有请求全部需要鉴权认证
                 .anyRequest().authenticated();
     }
