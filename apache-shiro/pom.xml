@@ -3,21 +3,17 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.5.6</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <groupId>com.ljh</groupId>
+        <artifactId>java-security</artifactId>
+        <version>1.0-SNAPSHOT</version>
     </parent>
-    <groupId>com.ljh</groupId>
     <artifactId>apache-shiro</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
     <description>Demo project for Apache Shiro</description>
 
     <properties>
-        <spring.version>5.3.12</spring.version>
+        <spring.version>5.3.15</spring.version>
         <druid.version>1.2.8</druid.version>
-        <mybatis-spring-boot-starter.version>2.2.0</mybatis-spring-boot-starter.version>
+        <mybatis-spring-boot-starter.version>2.2.2</mybatis-spring-boot-starter.version>
         <shiro-spring.version>1.8.0</shiro-spring.version>
         <!-- 不要升级成 10.0 版本 -->
         <tomcat-embed-jasper.version>9.0.43</tomcat-embed-jasper.version>
@@ -27,26 +23,11 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context-support</artifactId>
             <version>${spring.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <scope>runtime</scope>
-        </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
