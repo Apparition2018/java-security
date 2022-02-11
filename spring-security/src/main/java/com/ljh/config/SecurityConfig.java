@@ -8,6 +8,11 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+import javax.sql.DataSource;
 
 /**
  * SecurityConfig
@@ -19,9 +24,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsService userDetailsService;
+    private final DataSource dataSource;
 
-    public SecurityConfig(UserDetailsService userDetailsService) {
+    public SecurityConfig(UserDetailsService userDetailsService, DataSource dataSource) {
         this.userDetailsService = userDetailsService;
+        this.dataSource = dataSource;
     }
 
     @Bean
@@ -35,6 +42,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+    }
+
+    @Bean
+    public PersistentTokenRepository persistentTokenRepository() {
+        JdbcTokenRepositoryImpl jdbcTokenRepository = new JdbcTokenRepositoryImpl();
+        jdbcTokenRepository.setDataSource(dataSource);
+        // 建表语句 JdbcTokenRepositoryImpl.CREATE_TABLE_SQL
+        // jdbcTokenRepository.setCreateTableOnStartup(true);
+        return jdbcTokenRepository;
     }
 
     /**
@@ -57,30 +73,55 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
+        // Form Login：https://docs.spring.io/spring-security/reference/servlet/authentication/passwords/form.html
+        // Form Login：https://www.baeldung.com/spring-security-login
         httpSecurity
-                // CSRF禁用
-                .csrf().disable()
-                // 异常处理
-                .exceptionHandling()
-                // 拒绝访问页面
-                .accessDeniedPage("/403.html");
-        httpSecurity
-                // 支持基于表单的身份验证
                 .formLogin()
-                .loginPage("/login.html")
+                .loginPage("/iLogin")
                 .usernameParameter("username")
                 .passwordParameter("password")
                 .loginProcessingUrl("/user/login")
                 .failureUrl("/authentication/login?failed")
-                .defaultSuccessUrl("/test/index")
+                .defaultSuccessUrl("/success.html")
                 .permitAll();
+
+        // Logout：https://docs.spring.io/spring-security/reference/servlet/authentication/logout.html
+        // CSRF Logging Out：https://docs.spring.io/spring-security/reference/servlet/exploits/csrf.html#servlet-considerations-csrf-logout
+        // Logout：https://www.baeldung.com/spring-security-logout
+        // Manual Logout：https://www.baeldung.com/spring-security-manual-logout
+        // Custom Logout Handler：https://www.baeldung.com/spring-security-custom-logout-handler
         httpSecurity
-                // 过滤请求
+                .logout()
+                .logoutUrl("/logout")
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"))
+                .logoutSuccessUrl("/test/hello")
+                .permitAll();
+
+        // 授权 http servlet request：https://docs.spring.io/spring-security/reference/servlet/authorization/authorize-http-requests.html
+        httpSecurity
                 .authorizeRequests()
-                .antMatchers("/", "/test/hello", "/user/login").anonymous()
+                .antMatchers("/", "/test/hello").permitAll()
                 .antMatchers("/test/index").hasAnyAuthority("admin")
                 .antMatchers("/test/index").hasAnyRole("sale")
-                // 除上面外的所有请求全部需要鉴权认证
                 .anyRequest().authenticated();
+
+        // remember-me：https://docs.spring.io/spring-security/reference/servlet/authentication/rememberme.html
+        // remember-me 基于cookie：https://www.baeldung.com/spring-security-remember-me
+        // remember-me 基于持久化：https://www.baeldung.com/spring-security-persistent-remember-me
+//        httpSecurity
+//                .rememberMe()
+//                .key("remember-me")
+//                .tokenRepository(persistentTokenRepository())
+//                .userDetailsService(userDetailsService)
+//                .tokenValiditySeconds(3600 * 6);
+
+        httpSecurity
+                // CSRF：https://docs.spring.io/spring-security/reference/servlet/exploits/csrf.html
+                // CSRF Protection：https://www.baeldung.com/spring-security-csrf
+                // .csrf().disable()
+                // 异常处理
+                .exceptionHandling()
+                // 拒绝访问页面
+                .accessDeniedPage("/403.html");
     }
 }
