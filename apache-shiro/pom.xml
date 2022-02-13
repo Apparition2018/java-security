@@ -10,22 +10,18 @@
     <artifactId>apache-shiro</artifactId>
     <description>Demo project for Apache Shiro</description>
 
-    <properties>
-        <spring.version>5.3.15</spring.version>
-        <druid.version>1.2.8</druid.version>
-        <mybatis-spring-boot-starter.version>2.2.2</mybatis-spring-boot-starter.version>
-        <shiro-spring.version>1.8.0</shiro-spring.version>
-        <!-- 不要升级成 10.0 版本 -->
-        <tomcat-embed-jasper.version>9.0.43</tomcat-embed-jasper.version>
-        <servlet-api.version>4.0.1</servlet-api.version>
-        <jstl.version>1.2</jstl.version>
-    </properties>
-
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context-support</artifactId>
-            <version>${spring.version}</version>
         </dependency>
 
         <dependency>
@@ -45,26 +41,19 @@
             <version>${shiro-spring.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-        </dependency>
-
         <!-- JSP 相关 -->
+        <!-- 不要升级成 10.0 版本 -->
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-jasper</artifactId>
-            <version>${tomcat-embed-jasper.version}</version>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <version>${servlet-api.version}</version>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
-            <version>${jstl.version}</version>
         </dependency>
     </dependencies>
 

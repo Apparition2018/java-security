@@ -2,34 +2,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.ljh</groupId>
+    <parent>
+        <groupId>com.ljh</groupId>
+        <artifactId>java-security</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
     <artifactId>permission-management</artifactId>
-    <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
-
-    <properties>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <spring.version>4.3.30.RELEASE</spring.version>
-        <mysql.version>8.0.28</mysql.version>
-        <druid.version>1.2.8</druid.version>
-        <mybatis.veresion>3.5.9</mybatis.veresion>
-        <mybatis-spring.version>2.0.7</mybatis-spring.version>
-        <!-- 不更新版本，ShardedJedisPool, Sharded, ShardedJedis, BinaryShardedJedis, ShardInfo, JedisShardInfo 下个主要版本被移除 -->
-        <jedis.version>3.7.1</jedis.version>
-        <commons-lang3.version>3.12.0</commons-lang3.version>
-        <commons-collections4.version>4.4</commons-collections4.version>
-        <commons-codec.version>1.15</commons-codec.version>
-        <commons-email.version>1.5</commons-email.version>
-        <jackson.version>2.13.1</jackson.version>
-        <logback-classic.verson>1.2.10</logback-classic.verson>
-        <jsp-api.version>6.0.53</jsp-api.version>
-        <hibernate-validator.version>7.0.2.Final</hibernate-validator.version>
-        <lombok.version>1.18.22</lombok.version>
-        <junit.version>4.13.2</junit.version>
-        <mybatis-generator-maven-plugin.version>1.4.0</mybatis-generator-maven-plugin.version>
-        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
-    </properties>
 
     <dependencies>
         <dependency>
@@ -41,12 +20,6 @@
             <artifactId>spring-jdbc</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>${mysql.version}</version>
-            <scope>runtime</scope>
-        </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
@@ -62,18 +35,13 @@
             <artifactId>mybatis-spring</artifactId>
             <version>${mybatis-spring.version}</version>
         </dependency>
+        <!-- 不更新 4.0 版本，ShardedJedisPool, Sharded, ShardedJedis, BinaryShardedJedis, ShardInfo, JedisShardInfo 下个主要版本被移除 -->
         <dependency>
             <groupId>redis.clients</groupId>
             <artifactId>jedis</artifactId>
-            <version>${jedis.version}</version>
             <type>jar</type>
         </dependency>
 
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>${commons-lang3.version}</version>
-        </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-collections4</artifactId>
@@ -82,7 +50,6 @@
         <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
-            <version>${commons-codec.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -93,53 +60,29 @@
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-guava</artifactId>
-            <version>${jackson.version}</version>
         </dependency>
         <!-- logback-classic 包含了 logback-core 和 slf4j-api -->
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>${logback-classic.verson}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.tomcat</groupId>
-            <artifactId>jsp-api</artifactId>
-            <version>${jsp-api.version}</version>
+            <artifactId>tomcat-jsp-api</artifactId>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>${hibernate-validator.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>${lombok.version}</version>
         </dependency>
 
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-framework-bom</artifactId>
-                <version>${spring.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
     <build>
-        <finalName>permission</finalName>
-
         <plugins>
             <plugin>
                 <groupId>org.mybatis.generator</groupId>
