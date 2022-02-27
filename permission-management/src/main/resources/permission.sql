@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : ljh
+Source Server         : com.ljh
 Source Server Version : 50714
 Source Host           : localhost:3306
 Source Database       : permission

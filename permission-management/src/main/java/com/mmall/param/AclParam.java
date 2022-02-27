@@ -1,9 +1,10 @@
 package com.mmall.param;
 
-import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
+import javax.validation.constraints.*;
 
 /**
  * AclParam

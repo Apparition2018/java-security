@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 /**
  * LoginController
  *
- * @author ljh
+ * @author com.ljh
  * created on 2022/2/11 16:51
  */
 @Controller

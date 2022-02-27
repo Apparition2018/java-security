@@ -1,8 +1,9 @@
 package com.mmall.param;
 
-import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import javax.validation.constraints.*;
 
 /**
  * UserParam

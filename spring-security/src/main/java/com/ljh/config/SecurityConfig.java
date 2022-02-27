@@ -17,7 +17,7 @@ import javax.sql.DataSource;
 /**
  * SecurityConfig
  *
- * @author ljh
+ * @author com.ljh
  * created on 2022/2/10 14:43
  */
 @Configuration

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 /**
  * UserMapper
  *
- * @author ljh
+ * @author com.ljh
  * created on 2022/2/10 15:23
  */
 @Repository

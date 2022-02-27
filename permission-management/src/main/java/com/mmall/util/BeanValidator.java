@@ -4,12 +4,12 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.mmall.exception.ParamException;
-import jakarta.validation.ConstraintViolation;
-import jakarta.validation.Validation;
-import jakarta.validation.Validator;
-import jakarta.validation.ValidatorFactory;
 import org.apache.commons.collections4.MapUtils;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import java.util.*;
 
 /**
@@ -22,7 +22,7 @@ public class BeanValidator {
 
     private static final ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
 
-    private static <T> Map<String, String> validate(T t, Class... groups) {
+    private static <T> Map<String, String> validate(T t, Class<?>... groups) {
         Validator validator = validatorFactory.getValidator();
         Set<ConstraintViolation<T>> validateResult = validator.validate(t, groups);
         if (validateResult.isEmpty()) {
@@ -38,14 +38,14 @@ public class BeanValidator {
 
     private static Map<String, String> validateList(Collection<?> collection) {
         Preconditions.checkNotNull(collection);
-        Iterator iterator = collection.iterator();
+        Iterator<?> iterator = collection.iterator();
         Map<String, String> errors;
         do {
             if (!iterator.hasNext()) {
                 return Collections.emptyMap();
             }
             Object object = iterator.next();
-            errors = validate(object, new Class[0]);
+            errors = validate(object);
         } while (errors.isEmpty());
 
         return errors;
@@ -55,7 +55,7 @@ public class BeanValidator {
         if (objects != null && objects.length > 0) {
             return validateList(Lists.asList(first, objects));
         } else {
-            return validate(first, new Class[0]);
+            return validate(first);
         }
     }
 
