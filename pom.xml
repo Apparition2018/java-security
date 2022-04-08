@@ -20,17 +20,18 @@
         <spring-boot.version>2.3.12.RELEASE</spring-boot.version>
         <spring-cloud.version>Hoxton.SR12</spring-cloud.version>
         <spring-cloud-alibaba.version>2.2.7.RELEASE</spring-cloud-alibaba.version>
+        <shiro-spring.version>1.9.0</shiro-spring.version>
         <druid.version>1.2.8</druid.version>
         <mybatis.veresion>3.5.9</mybatis.veresion>
         <mybatis-spring.version>2.0.7</mybatis-spring.version>
         <mybatis-spring-boot-starter.version>2.2.2</mybatis-spring-boot-starter.version>
         <mybatis-plus-boot-starter.vserion>3.5.1</mybatis-plus-boot-starter.vserion>
-        <velocity.version>2.3</velocity.version>
-        <shiro-spring.version>1.8.0</shiro-spring.version>
         <commons-collections4.version>4.4</commons-collections4.version>
         <commons-email.version>1.5</commons-email.version>
+        <velocity.version>2.3</velocity.version>
         <springfox.version>3.0.0</springfox.version>
-        <mybatis-generator-maven-plugin.version>1.4.0</mybatis-generator-maven-plugin.version>
+        <springdoc.version>1.6.6</springdoc.version>
+        <mybatis-generator-maven-plugin.version>1.4.1</mybatis-generator-maven-plugin.version>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
     </properties>
 
