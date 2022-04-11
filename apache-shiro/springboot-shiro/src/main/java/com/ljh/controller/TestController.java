@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  * TestController
- * 子项目访问 jsp：maven → springboot-shiro → Plugins → spring-boot → spring-boot:run
+ * 子项目访问 jsp：Maven → apache-shiro → springboot-shiro → Plugins → spring-boot → spring-boot:run
  *
  * @author Arsenal
  * created on 2019/6/27 2:38
