@@ -5,8 +5,9 @@
 1. [Spring Security](https://docs.spring.io/spring-security/reference/index.html)
 2. [Spring Security 中文文档](https://www.chendalei.com/spring-security-Reference/spring-security-Reference-5.2.0.RELEASE-zh.html)
 3. [Spring Security | Baeldung](https://www.baeldung.com/category/spring/spring-security/)
-3. [Spring Security | 尚硅谷](https://www.bilibili.com/video/BV15a411A7kP?p=1)
-4. [Spring Security | 木兮同学](https://blog.csdn.net/qq_36221788/category_11009647.html)
+4. [Spring Security | 尚硅谷](https://www.bilibili.com/video/BV15a411A7kP?p=1)
+5. [Spring Security | 木兮同学](https://blog.csdn.net/qq_36221788/category_11009647.html)
+6. [Spring Security without the WebSecurityConfigurerAdapter](https://spring.io/blog/2022/02/21/spring-security-without-the-websecurityconfigureradapter)
 ---
 ## 主要功能
 1. [身份认证 Authentication](https://docs.spring.io/spring-security/reference/servlet/authentication/index.html)
@@ -115,11 +116,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     ```
 3. [常见内置表达式](https://docs.spring.io/spring-security/reference/servlet/authorization/expression-based.html#el-common-built-in)
 
-|注解|开启|JSR标准|允许SpEL表达式|
-|:---|:---|:---|:---|
-|@PreAuthorize<br/>@PostAuthorize|@EnableGlobalMethodSecurity(securedEnabled = true)|No|Yes|
-|@RolesAllowed<br/>@PermitAll</br>@DenyAll|@EnableGlobalMethodSecurity(prePostEnabled = true)|Yes|No|
-|@Secured|@EnableGlobalMethodSecurity(jsr250Enabled = true)|No|No|
+| 注解                                        | 开启                                                 | JSR标准 | 允许SpEL表达式 |
+|:------------------------------------------|:---------------------------------------------------|:------|:----------|
+| @PreAuthorize<br/>@PostAuthorize          | @EnableGlobalMethodSecurity(securedEnabled = true) | No    | Yes       |
+| @RolesAllowed<br/>@PermitAll</br>@DenyAll | @EnableGlobalMethodSecurity(prePostEnabled = true) | Yes   | No        |
+| @Secured                                  | @EnableGlobalMethodSecurity(jsr250Enabled = true)  | No    | No        |
 ---
 ## 防止漏洞
 1. [跨站请求伪造 CSRF](https://www.bilibili.com/video/BV15a411A7kP?p=19)
