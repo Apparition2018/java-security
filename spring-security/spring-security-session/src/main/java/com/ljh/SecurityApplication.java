@@ -5,6 +5,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 
+/**
+ * SecurityApplication
+ *
+ * @author ljh
+ * created on 2022/10/28 11:21
+ */
 @SpringBootApplication
 @MapperScan("com.ljh.mapper")
 // 开启方法安全

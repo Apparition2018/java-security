@@ -1,7 +1,6 @@
 package com.ljh.shiro.realm;
 
 import com.ljh.dao.UserDao;
-import com.ljh.vo.User;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -14,7 +13,10 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 
 import javax.annotation.Resource;
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * CustomRealm
@@ -41,8 +43,8 @@ public class CustomRealm extends AuthorizingRealm {
 
         String userName = (String) principalCollection.getPrimaryPrincipal();
         // 从数据库或缓存中获取角色数据
-        Set<String> roles = getRolesByUserName(userName);
-        Set<String> permissions = getPermissionsByRoles(roles);
+        Set<String> roles = this.getRolesByUserName(userName);
+        Set<String> permissions = this.getPermissionsByRoles(roles);
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
         authorizationInfo.setRoles(roles);
         authorizationInfo.setStringPermissions(permissions);
@@ -56,9 +58,12 @@ public class CustomRealm extends AuthorizingRealm {
      * @return 角色集合
      */
     private Set<String> getRolesByUserName(String userName) {
-        System.out.println("从数据库中获取角色数据");
-        List<String> roles = userDao.queryRolesByUserName(userName);
-        return new HashSet<>(roles);
+//        List<String> roles = userDao.queryRolesByUserName(userName);
+//        return new HashSet<>(roles);
+        Set<String> set = new HashSet<>();
+        set.add("admin");
+        set.add("user");
+        return set;
     }
 
     /**
@@ -69,20 +74,19 @@ public class CustomRealm extends AuthorizingRealm {
      */
     private Set<String> getPermissionsByRoles(Set<String> roles) {
         Set<String> sets = new HashSet<>();
-        sets.add("delete");
-        sets.add("add");
+        sets.add("user:delete");
+        sets.add("user:add");
         return sets;
     }
 
     // 认证
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
-
         // 1.从主体传过来的认证信息中，获得用户名
         String userName = (String) authenticationToken.getPrincipal();
 
         // 2.通过用户名到数据库中获得凭证
-        String password = getPasswordByUserName(userName);
+        String password = this.getPasswordByUserName(userName);
         if (password == null) {
             return null;
         }
@@ -100,17 +104,16 @@ public class CustomRealm extends AuthorizingRealm {
      * @return 凭证
      */
     private String getPasswordByUserName(String userName) {
-        User user = userDao.getUserByUserName(userName);
-        if (user != null) {
-            return user.getPassword();
-        }
-        return null;
-        // return userMap.get(userName);
+//        User user = userDao.getUserByUserName(userName);
+//        if (user != null) {
+//            return user.getPassword();
+//        }
+//        return null;
+        return userMap.get(userName);
     }
 
     public static void main(String[] args) {
         Md5Hash md5Hash = new Md5Hash("123", ByteSource.Util.bytes("salt"));
         System.out.println(md5Hash);
     }
-
 }

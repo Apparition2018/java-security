@@ -2,7 +2,6 @@ package com.mmall.model;
 
 public class SysLogWithBLOBs extends SysLog {
     private String oldValue;
-
     private String newValue;
 
     public String getOldValue() {

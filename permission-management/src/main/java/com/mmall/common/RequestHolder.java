@@ -41,5 +41,4 @@ public class RequestHolder {
         userHolder.remove();
         requestHolder.remove();
     }
-
 }

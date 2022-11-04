@@ -14,17 +14,17 @@ import java.util.Set;
 /**
  * RedisCache
  *
- * @author com.ljh
+ * @author ljh
  * created on 2021/3/1 17:17
  */
 @Component
 public class RedisCache<K, V> implements Cache<K, V> {
-    
+
     @Resource
     private JedisUtils jedisUtils;
-    
+
     private final String CACHE_PREFIX = "shiro-cache:";
-    
+
     private byte[] getKey(K k) {
         if (k instanceof String) {
             return (CACHE_PREFIX + k).getBytes(StandardCharsets.UTF_8);
@@ -48,7 +48,7 @@ public class RedisCache<K, V> implements Cache<K, V> {
         byte[] key = getKey(k);
         byte[] value = SerializationUtils.serialize(v);
         jedisUtils.set(key, value);
-        jedisUtils.expire(key, 600);
+        jedisUtils.expire(key, 600L);
         return v;
     }
 

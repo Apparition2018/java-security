@@ -18,7 +18,7 @@ import java.util.Set;
  * RedisSessionDao
  * 使用 Redis 重写 SessionDao
  *
- * @author com.ljh
+ * @author ljh
  * created on 2021/3/1 14:19
  */
 public class RedisSessionDao extends AbstractSessionDAO {
@@ -37,7 +37,7 @@ public class RedisSessionDao extends AbstractSessionDAO {
             byte[] key = getKey(session.getId().toString());
             byte[] value = SerializationUtils.serialize(session);
             jedisUtils.set(key, value);
-            jedisUtils.expire(key, 600);
+            jedisUtils.expire(key, 600L);
         }
     }
 

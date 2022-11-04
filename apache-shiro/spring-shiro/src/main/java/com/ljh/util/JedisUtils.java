@@ -11,19 +11,19 @@ import java.util.Set;
 /**
  * JedisUtil
  *
- * @author com.ljh
+ * @author ljh
  * created on 2021/3/1 14:22
  */
 @Component
 public class JedisUtils {
-    
+
     @Resource
     private JedisPool jedisPool;
 
     private Jedis getResource() {
         return jedisPool.getResource();
     }
-    
+
     public byte[] set(byte[] key, byte[] value) {
         try (Jedis jedis = getResource()) {
             jedis.set(key, value);
@@ -31,7 +31,7 @@ public class JedisUtils {
         }
     }
 
-    public void expire(byte[] key, int i) {
+    public void expire(byte[] key, long i) {
         try (Jedis jedis = getResource()) {
             jedis.expire(key, i);
         }

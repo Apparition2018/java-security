@@ -16,16 +16,13 @@ import java.util.Date;
 @Setter
 @ToString
 public class SearchLogDto {
-
-    private Integer type;   // LogType
-
+    // LogType
+    private Integer type;
     private String beforeSeg;
-
     private String afterSeg;
-
     private String operator;
-
-    private Date fromTime;  // yyyy-MM-dd HH:mm:ss
-
-    private Date toTime;    // yyyy-MM-dd HH:mm:ss
+    // yyyy-MM-dd HH:mm:ss
+    private Date fromTime;
+    // yyyy-MM-dd HH:mm:ss
+    private Date toTime;
 }

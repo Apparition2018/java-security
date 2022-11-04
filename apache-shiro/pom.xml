@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.ljh</groupId>
         <artifactId>java-security</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>0.0.1-SNAPSHOT</version>
     </parent>
     <artifactId>apache-shiro</artifactId>
     <packaging>pom</packaging>
@@ -16,5 +16,4 @@
         <module>spring-shiro</module>
         <module>springboot-shiro</module>
     </modules>
-
 </project>

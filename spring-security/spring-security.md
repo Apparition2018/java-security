@@ -37,56 +37,56 @@ FilterSecurityInterceptor                 方法级的权限过滤器，基本�
 `````
 ---
 ## 认证
->### 设置用户名和密码三种方式
->1. application.properties
->```
->spring.security.user.name=user
->spring.security.user.password=123456
->```
->2. AuthenticationManagerBuilder#inMemoryAuthentication()
->```java
->@Configuration
->public class SecurityConfig extends WebSecurityConfigurerAdapter {
->   @Bean
->   PasswordEncoder passwordEncoder() {
->       return new BCryptPasswordEncoder();
->   }
->   @Override
->   protected void configure(AuthenticationManagerBuilder auth) throws Exception {
->       BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
->       String encodePwd = passwordEncoder.encode("123");
->       auth.inMemoryAuthentication().withUser("user").password(encodePwd).roles("admin");
->   }
->}
->```
->3. AuthenticationManagerBuilder#userDetailsService()
->   1. @see SecurityConfig#configure
->   2. @see MyUserDetailService#loadUserByUsername
->### Remember-Me
->1. 建表：JdbcTokenRepositoryImpl.CREATE_TABLE_SQL
->2. 配置 SecurityConfig
->```java
->@Configuration
->public class SecurityConfig extends WebSecurityConfigurerAdapter {
->   private final DataSource dataSource;
->   public SecurityConfig(DataSource dataSource) {
->       this.dataSource = dataSource;
->   }
->   @Bean
->   public PersistentTokenRepository persistentTokenRepository() {
->       JdbcTokenRepositoryImpl jdbcTokenRepository = new JdbcTokenRepositoryImpl();
->       jdbcTokenRepository.setDataSource(dataSource);
->       return jdbcTokenRepository;
->   }
->   @Override
->   protected void configure(HttpSecurity httpSecurity) throws Exception {
->       httpSecurity.rememberMe()
->           .tokenRepository(persistentTokenRepository())
->           .userDetailsService(userDetailsService)
->           .tokenValiditySeconds(3600 * 6);
->   }
->}
->```
+### 设置用户名和密码三种方式
+1. application.properties
+```properties
+spring.security.user.name=user
+spring.security.user.password=123456
+```
+2. AuthenticationManagerBuilder#inMemoryAuthentication()
+```java
+@Configuration
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    @Bean
+    PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodePwd = passwordEncoder.encode("123");
+        auth.inMemoryAuthentication().withUser("user").password(encodePwd).roles("admin");
+    }
+}
+```
+3. AuthenticationManagerBuilder#userDetailsService()
+    1. @see [SecurityConfig#configure](spring-security-session/src/main/java/com/ljh/config/SecurityConfig.java)
+    2. @see [MyUserDetailService#loadUserByUsername](spring-security-session/src/main/java/com/ljh/service/MyUserDetailService.java)
+### Remember-Me
+1. 建表：JdbcTokenRepositoryImpl.CREATE_TABLE_SQL
+2. 配置 SecurityConfig
+```java
+@Configuration
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    private final DataSource dataSource;
+    public SecurityConfig(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+    @Bean
+    public PersistentTokenRepository persistentTokenRepository() {
+        JdbcTokenRepositoryImpl jdbcTokenRepository = new JdbcTokenRepositoryImpl();
+        jdbcTokenRepository.setDataSource(dataSource);
+        return jdbcTokenRepository;
+    }
+    @Override
+    protected void configure(HttpSecurity httpSecurity) throws Exception {
+        httpSecurity.rememberMe()
+            .tokenRepository(persistentTokenRepository())
+            .userDetailsService(userDetailsService)
+            .tokenValiditySeconds(3600 * 6);
+    }
+}
+```
 ## 授权
 ```java
 @Configuration
@@ -106,24 +106,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 ```
 ---
 ## 注解
-1. @Secure
-2. [@Pre 和 @Post 注解](https://docs.spring.io/spring-security/reference/servlet/authorization/expression-based.html#el-pre-post-annotations)
-    ```
-    @PreAuthorize       方法执行前权限验证
-    @PostAuthorize      方法执行后权限验证
-    @PreFilter          集合数组类型参数过滤
-    @PostFilter         集合数组类型返值过滤
-    ```
+1. @Secured
+2. [@Pre & @Post](https://docs.spring.io/spring-security/reference/servlet/authorization/expression-based.html#el-pre-post-annotations)
+```
+@PreAuthorize        方法执行前权限验证
+@PostAuthorize       方法执行后权限验证
+@PreFilter           集合数组类型参数过滤
+@PostFilter          集合数组类型返值过滤
+```
 3. [常见内置表达式](https://docs.spring.io/spring-security/reference/servlet/authorization/expression-based.html#el-common-built-in)
 
 | 注解                                        | 开启                                                 | JSR标准 | 允许SpEL表达式 |
 |:------------------------------------------|:---------------------------------------------------|:------|:----------|
 | @PreAuthorize<br/>@PostAuthorize          | @EnableGlobalMethodSecurity(securedEnabled = true) | No    | Yes       |
-| @RolesAllowed<br/>@PermitAll</br>@DenyAll | @EnableGlobalMethodSecurity(prePostEnabled = true) | Yes   | No        |
+| @RolesAllowed<br/>@PermitAll<br/>@DenyAll | @EnableGlobalMethodSecurity(prePostEnabled = true) | Yes   | No        |
 | @Secured                                  | @EnableGlobalMethodSecurity(jsr250Enabled = true)  | No    | No        |
 ---
 ## 防止漏洞
-1. [跨站请求伪造 CSRF](https://www.bilibili.com/video/BV15a411A7kP?p=19)
+1. [跨站请求伪造 CSRF (Cross-Site Request Forgery)](https://www.bilibili.com/video/BV15a411A7kP?p=19)
     - [浅谈 CSRF 攻击方式](https://www.cnblogs.com/hyddd/archive/2009/04/09/1432744.html)
     1. 有状态 API
     ```html
@@ -140,3 +140,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         headers: { 'X-XSRF-TOKEN': csrfToken },
     })
     ```
+---

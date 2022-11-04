@@ -3,9 +3,11 @@ package com.ljh;
 import com.alibaba.druid.pool.DruidDataSource;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.mgt.DefaultSecurityManager;
 import org.apache.shiro.realm.jdbc.JdbcRealm;
 import org.apache.shiro.subject.Subject;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -16,21 +18,21 @@ import org.junit.Test;
  */
 public class JdbcRealmTest {
 
-    DruidDataSource dataSource = new DruidDataSource();
+    private final DruidDataSource dataSource = new DruidDataSource();
 
-    {
+    @Before
+    public void initDataSource() {
         dataSource.setUrl("jdbc:mysql://localhost:3306/shiro?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC");
-        dataSource.setUsername("com.ljh");
-        dataSource.setPassword("123456");
+        dataSource.setUsername("root");
+        dataSource.setPassword("root");
     }
 
     @Test
     public void testJdbcRealm() {
-
         JdbcRealm jdbcRealm = new JdbcRealm();
         jdbcRealm.setDataSource(dataSource);
-        jdbcRealm.setPermissionsLookupEnabled(true );
-        
+        jdbcRealm.setPermissionsLookupEnabled(true);
+
         // 查询密码
         String sql = "select password from user where username = ?";
         jdbcRealm.setAuthenticationQuery(sql);
@@ -44,12 +46,12 @@ public class JdbcRealmTest {
         // 1.构建 SecurityManager 环境
         DefaultSecurityManager defaultSecurityManager = new DefaultSecurityManager();
         defaultSecurityManager.setRealm(jdbcRealm);
-   
+
         // 2.主体提交认证请求
         SecurityUtils.setSecurityManager(defaultSecurityManager);
-        Subject subject = SecurityUtils.getSubject(); 
+        Subject subject = SecurityUtils.getSubject();
 
-        UsernamePasswordToken token = new UsernamePasswordToken("admin", "123");
+        UsernamePasswordToken token = new UsernamePasswordToken("admin", new Md5Hash("123", "salt").toString());
         subject.login(token);
         System.out.println("isAuthenticated: " + subject.isAuthenticated());
 

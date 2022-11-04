@@ -17,7 +17,6 @@ public class IniRealmTest {
 
     @Test
     public void testIniRealm() {
-
         IniRealm iniRealm = new IniRealm("classpath:user.ini");
 
         // 1.构建 SecurityManager 环境

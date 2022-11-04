@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * MyUserDetailService
  *
- * @author com.ljh
+ * @author ljh
  * created on 2022/2/10 15:02
  */
 @Service("userDetailService")

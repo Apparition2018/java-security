@@ -7,12 +7,12 @@
        http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
        http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd">
 
-    <context:property-placeholder location="classpath:jdbc.properties,classpath:redis.properties"/>
     <import resource="spring-dao.xml"/>
     <import resource="spring-redis.xml"/>
 
     <context:component-scan base-package="com.ljh"/>
 
+    <!-- id 与 web.xml 中的 DelegatingFilterProxy 的 filter-name 保持一致 -->
     <bean class="org.apache.shiro.spring.web.ShiroFilterFactoryBean" id="shiroFilter">
         <property name="securityManager" ref="securityManager"/>
         <property name="loginUrl" value="login.html"/>
@@ -58,13 +58,13 @@
     </bean>
 
     <bean class="com.ljh.session.RedisSessionDao" id="sessionDao"/>
-    
+
     <bean class="com.ljh.cache.RedisCacheManager" id="cacheManager"/>
-    
+
     <bean class="org.apache.shiro.web.mgt.CookieRememberMeManager" id="cookieRememberMeManager">
         <property name="cookie" ref="cookie"/>
     </bean>
-    
+
     <bean class="org.apache.shiro.web.servlet.SimpleCookie" id="cookie">
         <constructor-arg value="rememberMe"/>
         <property name="maxAge" value="129600"/>

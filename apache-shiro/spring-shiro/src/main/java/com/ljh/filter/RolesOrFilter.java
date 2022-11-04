@@ -7,7 +7,7 @@ import org.apache.shiro.web.filter.authz.AuthorizationFilter;
  * RolesOrFilter
  * 自定义过滤器：只要含有其中一个角色则认证通过
  *
- * @author com.ljh
+ * @author ljh
  * created on 2021/3/1 12:03
  */
 public class RolesOrFilter extends AuthorizationFilter {

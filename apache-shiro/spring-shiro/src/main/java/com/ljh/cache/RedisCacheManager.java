@@ -9,7 +9,7 @@ import javax.annotation.Resource;
 /**
  * RedisCacheManager
  *
- * @author com.ljh
+ * @author ljh
  * created on 2021/3/1 17:14
  */
 public class RedisCacheManager implements CacheManager {

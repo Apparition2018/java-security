@@ -71,6 +71,5 @@ public class TestController {
         } catch (Exception e) {
             return "login";
         }
-
     }
 }

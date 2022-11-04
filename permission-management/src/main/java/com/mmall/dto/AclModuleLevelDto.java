@@ -19,9 +19,7 @@ import java.util.List;
 @Setter
 @ToString
 public class AclModuleLevelDto extends SysAclModule {
-
     private List<AclModuleLevelDto> aclModuleList = Lists.newArrayList();
-
     private List<AclDto> aclList = Lists.newArrayList();
 
     public static AclModuleLevelDto adapt(SysAclModule aclModule) {

@@ -15,16 +15,12 @@ import lombok.ToString;
 @ToString
 // 可以用 validator ?
 public class SearchLogParam {
-
-    private Integer type;   // LogType
-
+    // LogType
+    private Integer type;
     private String beforeSeg;
-
     private String afterSeg;
-
     private String operator;
-
-    private String fromTime; // yyyy-MM-dd HH:mm:ss
-
+    // yyyy-MM-dd HH:mm:ss
+    private String fromTime;
     private String toTime;
 }

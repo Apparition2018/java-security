@@ -13,7 +13,7 @@ import java.io.Serializable;
  * CustomSessionManager
  * 自定义 SessionManager
  *
- * @author com.ljh
+ * @author ljh
  * created on 2021/3/1 16:21
  */
 public class CustomSessionManager extends DefaultWebSessionManager {

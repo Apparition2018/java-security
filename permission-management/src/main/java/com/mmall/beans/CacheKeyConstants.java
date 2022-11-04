@@ -10,9 +10,6 @@ import lombok.Getter;
  */
 @Getter
 public enum CacheKeyConstants {
-
     SYSTEM_ACLS, // 系统所有权限
-
     USER_ACLS;  // 用户权限
-
 }

@@ -18,7 +18,6 @@ public class CustomRealmTest {
 
     @Test
     public void testCustomRealm() {
-
         CustomRealm customRealm = new CustomRealm();
 
         // 1.构建 SecurityManager 环境
@@ -39,7 +38,7 @@ public class CustomRealmTest {
         System.out.println("isAuthenticated: " + subject.isAuthenticated());
 
         subject.checkRole("admin");
-        subject.checkPermission("user:delete");
+        subject.checkPermissions("user:add", "user:delete");
 
         subject.logout();
         System.out.println("isAuthenticated: " + subject.isAuthenticated());

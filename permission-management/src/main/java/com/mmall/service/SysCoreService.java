@@ -130,5 +130,4 @@ public class SysCoreService {
         return JsonMapper.string2Obj(cacheValue, new TypeReference<List<SysAcl>>() {
         });
     }
-
 }

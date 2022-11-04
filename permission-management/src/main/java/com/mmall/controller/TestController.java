@@ -57,6 +57,4 @@ public class TestController {
 //        }
         return JsonData.success("test validate");
     }
-
-
 }

@@ -17,7 +17,7 @@ import org.junit.Test;
  */
 public class AuthTest {
 
-    SimpleAccountRealm simpleAccountRealm = new SimpleAccountRealm();
+    private final SimpleAccountRealm simpleAccountRealm = new SimpleAccountRealm();
 
     @Before
     public void addUser() {
@@ -26,7 +26,6 @@ public class AuthTest {
 
     @Test
     public void testAuth() {
-
         // 1.构建 SecurityManager 环境
         DefaultSecurityManager defaultSecurityManager = new DefaultSecurityManager();
         defaultSecurityManager.setRealm(simpleAccountRealm);

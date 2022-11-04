@@ -1,11 +1,6 @@
 package com.mmall.beans;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.Set;
 
@@ -15,18 +10,12 @@ import java.util.Set;
  * @author Arsenal
  * created on 2019/07/18 00:52
  */
-@Getter
-@Setter
-@ToString
-@Builder
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Mail {
-
     private String subject;
-
     private String message;
-
     private Set<String> receivers;
 }
 

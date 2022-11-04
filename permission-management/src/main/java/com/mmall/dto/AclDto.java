@@ -8,10 +8,10 @@ import org.springframework.beans.BeanUtils;
 
 /**
  * AclDto
- *
+ * <p>
  * 显示所有权限，且显示是否有权限操作
  * 而不是只显示有权限操作的权限
- *
+ * <p>
  * 好处是管理员可以知道自己是拥有所有权限的操作权限
  *
  * @author Arsenal
@@ -21,10 +21,8 @@ import org.springframework.beans.BeanUtils;
 @Setter
 @ToString
 public class AclDto extends SysAcl {
-
     // 是否要默认选中
     private boolean checked = false;
-
     // 是否有权限操作
     private boolean hasAcl = false;
 

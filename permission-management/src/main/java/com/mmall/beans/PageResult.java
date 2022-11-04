@@ -18,8 +18,6 @@ import java.util.List;
 @ToString
 @Builder
 public class PageResult<T> {
-
     private List<T> data;
-
     private int total;
 }

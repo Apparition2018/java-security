@@ -4,17 +4,11 @@ import java.util.Date;
 
 public class SysLog {
     private Integer id;
-
     private Integer type;
-
     private Integer targetId;
-
     private String operator;
-
     private Date operateTime;
-
     private String operateIp;
-
     private Integer status;
 
     public Integer getId() {
