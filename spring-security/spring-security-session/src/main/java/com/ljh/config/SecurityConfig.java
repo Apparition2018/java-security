@@ -32,7 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    PasswordEncoder passwordEncoder() {
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
@@ -55,6 +55,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**
      * RuoYi (SecurityConfig)
+     * <pre>
      * anyRequest          |   匹配所有请求路径
      * access              |   SpringEl表达式结果为true时可以访问
      * anonymous           |   匿名可以访问
@@ -68,8 +69,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * permitAll           |   用户可以任意访问
      * rememberMe          |   允许通过remember-me登录的用户访问
      * authenticated       |   用户登录后可访问
-     * <p>
-     * HttpSecurity 详解：https://blog.csdn.net/qq_36221788/article/details/115497887
+     * </pre>
+     *
+     * @see <a href="https://blog.csdn.net/qq_36221788/article/details/115497887">HttpSecurity 详解</a>
      */
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {

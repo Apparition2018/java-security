@@ -23,7 +23,7 @@
 
     <!-- Encoding -->
     <filter>
-        <filter-name>encodingFilter</filter-name>
+        <filter-name>characterEncodingFilter</filter-name>
         <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
         <init-param>
             <param-name>encoding</param-name>
@@ -35,41 +35,11 @@
         </init-param>
     </filter>
     <filter-mapping>
-        <filter-name>encodingFilter</filter-name>
+        <filter-name>characterEncodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-
-    <!-- spring mvc 配置 -->
-    <servlet>
-        <servlet-name>spring</servlet-name>
-        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>spring</servlet-name>
-        <!-- 可以匹配到 /login /hello，但匹配不到/ss.jsp -->
-        <url-pattern>/</url-pattern>
-    </servlet-mapping>
-
-    <!-- druid -->
-    <servlet>
-        <servlet-name>DruidSatServlet</servlet-name>
-        <servlet-class>com.alibaba.druid.support.http.StatViewServlet</servlet-class>
-        <!-- 设置 druid 登录账号和密码 -->
-        <init-param>
-            <param-name>loginUsername</param-name>
-            <param-value>druid</param-value>
-        </init-param>
-        <init-param>
-            <param-name>loginPassword</param-name>
-            <param-value>druid</param-value>
-        </init-param>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>DruidSatServlet</servlet-name>
-        <url-pattern>/sys/druid/*</url-pattern>
-    </servlet-mapping>
     <filter>
-        <filter-name>DruidWebStatFilter</filter-name>
+        <filter-name>webStat</filter-name>
         <filter-class>com.alibaba.druid.support.http.WebStatFilter</filter-class>
         <init-param>
             <param-name>exclusions</param-name>
@@ -77,23 +47,20 @@
         </init-param>
     </filter>
     <filter-mapping>
-        <filter-name>DruidWebStatFilter</filter-name>
+        <filter-name>webStat</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-
-    <!-- Filter -->
     <filter>
-        <filter-name>loginFilter</filter-name>
+        <filter-name>login</filter-name>
         <filter-class>com.mmall.filter.LoginFilter</filter-class>
     </filter>
     <filter-mapping>
-        <filter-name>loginFilter</filter-name>
+        <filter-name>login</filter-name>
         <url-pattern>/sys/*</url-pattern>
         <url-pattern>/admin/*</url-pattern>
     </filter-mapping>
-
     <filter>
-        <filter-name>aclControlFilter</filter-name>
+        <filter-name>aclControl</filter-name>
         <filter-class>com.mmall.filter.AclControlFilter</filter-class>
         <init-param>
             <!-- targetFilterLifecycle 为 true，则 spring 来管理 Filter.init() 和 Filter.destroy() -->
@@ -106,8 +73,37 @@
         </init-param>
     </filter>
     <filter-mapping>
-        <filter-name>aclControlFilter</filter-name>
+        <filter-name>aclControl</filter-name>
         <url-pattern>/sys/*</url-pattern>
         <url-pattern>/admin/*</url-pattern>
     </filter-mapping>
+
+    <!-- spring mvc 配置 -->
+    <servlet>
+        <servlet-name>dispatcher</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>dispatcher</servlet-name>
+        <!-- 可以匹配到 /login /hello，但匹配不到/ss.jsp -->
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+    <!-- druid -->
+    <servlet>
+        <servlet-name>statView</servlet-name>
+        <servlet-class>com.alibaba.druid.support.http.StatViewServlet</servlet-class>
+        <!-- 设置 druid 登录账号和密码 -->
+        <init-param>
+            <param-name>loginUsername</param-name>
+            <param-value>druid</param-value>
+        </init-param>
+        <init-param>
+            <param-name>loginPassword</param-name>
+            <param-value>druid</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>statView</servlet-name>
+        <url-pattern>/sys/druid/*</url-pattern>
+    </servlet-mapping>
 </web-app>

@@ -1,13 +1,14 @@
 # Spring Security
 
 ---
-## 参考网站
-1. [Spring Security](https://docs.spring.io/spring-security/reference/index.html)
-2. [Spring Security 中文文档](https://www.chendalei.com/spring-security-Reference/spring-security-Reference-5.2.0.RELEASE-zh.html)
-3. [Spring Security | Baeldung](https://www.baeldung.com/category/spring/spring-security/)
-4. [Spring Security | 尚硅谷](https://www.bilibili.com/video/BV15a411A7kP?p=1)
-5. [Spring Security | 木兮同学](https://blog.csdn.net/qq_36221788/category_11009647.html)
-6. [Spring Security without the WebSecurityConfigurerAdapter](https://spring.io/blog/2022/02/21/spring-security-without-the-websecurityconfigureradapter)
+## Reference
+- [Spring Security](https://docs.spring.io/spring-security/reference/index.html)
+- [Spring Security 中文文档](https://www.chendalei.com/spring-security-Reference/spring-security-Reference-5.2.0.RELEASE-zh.html)
+- [Spring Security | Baeldung](https://www.baeldung.com/category/spring/spring-security/)
+- [Spring Security | 尚硅谷](https://www.bilibili.com/video/BV15a411A7kP?p=1)
+- [Spring Security | 木兮同学](https://blog.csdn.net/qq_36221788/category_11009647.html)
+- [Spring Security without the WebSecurityConfigurerAdapter](https://spring.io/blog/2022/02/21/spring-security-without-the-websecurityconfigureradapter)
+- [Spring Security 身份认证之 AuthenticationProvider](https://blog.csdn.net/qq_43753724/article/details/122979973)
 ---
 ## 主要功能
 1. [身份认证 Authentication](https://docs.spring.io/spring-security/reference/servlet/authentication/index.html)
