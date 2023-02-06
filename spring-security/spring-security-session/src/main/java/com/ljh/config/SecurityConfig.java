@@ -87,7 +87,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/success.html")
                 .permitAll();
 
-        // Logout：https://docs.spring.io/spring-security/reference/servlet/authentication/logout.html
+        // Handling Logouts：https://docs.spring.io/spring-security/reference/servlet/authentication/logout.html
         // CSRF Logging Out：https://docs.spring.io/spring-security/reference/servlet/exploits/csrf.html#servlet-considerations-csrf-logout
         // Logout：https://www.baeldung.com/spring-security-logout
         // Manual Logout：https://www.baeldung.com/spring-security-manual-logout
@@ -99,17 +99,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/test/hello")
                 .permitAll();
 
-        // 授权 http servlet request：https://docs.spring.io/spring-security/reference/servlet/authorization/authorize-http-requests.html
+        // requestMatchers() 使用场景：https://stackoverflow.com/questions/53646660/using-httpsecurity-requestmatchers-in-class-resourceserverconfiguration-configur
+        // httpSecurity.requestMatchers().antMatchers("/test/**");
+
         httpSecurity
-                .authorizeRequests()
+                .authorizeHttpRequests()
                 .antMatchers("/", "/test/hello").permitAll()
                 .antMatchers("/test/index").hasAnyAuthority("admin")
                 .antMatchers("/test/index").hasAnyRole("sale")
                 .anyRequest().authenticated();
 
-        // remember-me：https://docs.spring.io/spring-security/reference/servlet/authentication/rememberme.html
-        // remember-me 基于cookie：https://www.baeldung.com/spring-security-remember-me
-        // remember-me 基于持久化：https://www.baeldung.com/spring-security-persistent-remember-me
 //        httpSecurity
 //                .rememberMe()
 //                .key("remember-me")
@@ -118,8 +117,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .tokenValiditySeconds(3600 * 6);
 
         httpSecurity
-                // CSRF：https://docs.spring.io/spring-security/reference/servlet/exploits/csrf.html
-                // CSRF Protection：https://www.baeldung.com/spring-security-csrf
                 // .csrf().disable()
                 // 异常处理
                 .exceptionHandling()

@@ -11,9 +11,9 @@
 - [Spring Security 身份认证之 AuthenticationProvider](https://blog.csdn.net/qq_43753724/article/details/122979973)
 ---
 ## 主要功能
-1. [身份认证 Authentication](https://docs.spring.io/spring-security/reference/servlet/authentication/index.html)
-2. [授权 Authorization](https://docs.spring.io/spring-security/reference/servlet/authorization/index.html)
-3. [防止漏洞利用](https://docs.spring.io/spring-security/reference/servlet/exploits/index.html)
+1. [身份认证 Authentication](#Authentication)
+2. [授权 Authorization](#Authorization)
+3. [防止漏洞利用](#Against)
 4. [集成](https://docs.spring.io/spring-security/reference/servlet/integrations/index.html)
 ---
 ## 基本原理
@@ -37,7 +37,7 @@ FilterSecurityInterceptor                 方法级的权限过滤器，基本�
     3. List<Filter> filters = this.getFilters((HttpServletRequest)firewallRequest)
 `````
 ---
-## 认证
+## <a id="Authentication">[认证](https://docs.spring.io/spring-security/reference/servlet/authentication/index.html)</a>
 ### 设置用户名和密码三种方式
 1. application.properties
 ```properties
@@ -61,11 +61,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 }
 ```
 3. AuthenticationManagerBuilder#userDetailsService()
-    1. @see [SecurityConfig#configure](spring-security-session/src/main/java/com/ljh/config/SecurityConfig.java)
+    1. @see [SecurityConfig#configure(AuthenticationManagerBuilder auth)](spring-security-session/src/main/java/com/ljh/config/SecurityConfig.java)
     2. @see [MyUserDetailService#loadUserByUsername](spring-security-session/src/main/java/com/ljh/service/MyUserDetailService.java)
 ### Remember-Me
 1. 建表：JdbcTokenRepositoryImpl.CREATE_TABLE_SQL
-2. 配置 SecurityConfig
+2. 配置 [SecurityConfig](spring-security-session/src/main/java/com/ljh/config/SecurityConfig.java)
 ```java
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -88,15 +88,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 }
 ```
-## 授权
+- Reference
+    - [Remember-Me Authentication](https://docs.spring.io/spring-security/reference/servlet/authentication/rememberme.html)
+    - [Remember Me 基于 Cookie](https://www.baeldung.com/spring-security-remember-me)
+    - [Remember Me 基于持久化](https://www.baeldung.com/spring-security-persistent-remember-me)
+---
+## <a id="Authorization">[授权](https://docs.spring.io/spring-security/reference/servlet/authorization/index.html)</a>
+### [授权 HTTP 请求](https://docs.spring.io/spring-security/reference/servlet/authorization/authorize-http-requests.html)
 ```java
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         httpSecurity
-                // 过滤请求
-                .authorizeRequests()
+                // authorizeRequests() 将被弃用
+                .authorizeHttpRequests()
                 .antMatchers("/", "/test/hello", "/user/login").anonymous()
                 .antMatchers("/test/index").hasAnyAuthority("admin")
                 .antMatchers("/test/index").hasAnyRole("sale")
@@ -105,8 +111,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 }
 ```
----
-## 注解
+### 注解
 1. @Secured
 2. [@Pre & @Post](https://docs.spring.io/spring-security/reference/servlet/authorization/expression-based.html#el-pre-post-annotations)
 ```
@@ -123,22 +128,30 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 | @RolesAllowed<br/>@PermitAll<br/>@DenyAll | @EnableGlobalMethodSecurity(prePostEnabled = true) | Yes   | No        |
 | @Secured                                  | @EnableGlobalMethodSecurity(jsr250Enabled = true)  | No    | No        |
 ---
-## 防止漏洞
-1. [跨站请求伪造 CSRF (Cross-Site Request Forgery)](https://www.bilibili.com/video/BV15a411A7kP?p=19)
+---
+## <a id="Against">[防止漏洞攻击](https://docs.spring.io/spring-security/reference/servlet/exploits/index.html)</a>
+### [跨站请求伪造 CSRF (Cross-Site Request Forgery)](https://docs.spring.io/spring-security/reference/servlet/exploits/csrf.html)
+1. 有状态 API
+```html
+<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+```
+2. 无状态 API 
+```
+httpSecurity.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
+```
+```javascript
+const csrfToken = document.cookie.replace(/(?:(?:^|.*;\s*)XSRF-TOKEN\s*\=\s*([^;]*).*$)|^.*$/, '$1');
+fetch(url, {
+    method: 'POST',
+    headers: { 'X-XSRF-TOKEN': csrfToken },
+})
+```
+- Reference
+    - [A Guide to CSRF Protection in Spring Security](https://www.baeldung.com/spring-security-csrf)
+    - [CSRF Protection with Spring MVC and Thymeleaf](https://www.baeldung.com/csrf-thymeleaf-with-spring-security)
+    - [尚硅谷-SpringSecurity-CSRF功能](https://www.bilibili.com/video/BV15a411A7kP?p=19) 
     - [浅谈 CSRF 攻击方式](https://www.cnblogs.com/hyddd/archive/2009/04/09/1432744.html)
-    1. 有状态 API
-    ```html
-    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-    ```
-    2. 无状态 API 
-    ```
-    httpSecurity.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
-    ```
-    ```javascript
-    const csrfToken = document.cookie.replace(/(?:(?:^|.*;\s*)XSRF-TOKEN\s*\=\s*([^;]*).*$)|^.*$/, '$1');
-    fetch(url, {
-        method: 'POST',
-        headers: { 'X-XSRF-TOKEN': csrfToken },
-    })
-    ```
+### [跨站脚本 XSS (Cross-Site Script)](https://www.baeldung.com/spring-prevent-xss)
+1. [X-XSS-Protection](https://docs.spring.io/spring-security/reference/servlet/exploits/headers.html#servlet-headers-xss-protection)
+2. [Content Security Policy (CSP)](https://docs.spring.io/spring-security/reference/servlet/exploits/headers.html#servlet-headers-xss-protection)
 ---
