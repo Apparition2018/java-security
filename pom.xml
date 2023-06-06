@@ -15,22 +15,35 @@
     </modules>
 
     <properties>
-        <spring-boot.version>2.6.11</spring-boot.version>
-        <spring-cloud.version>2021.0.4</spring-cloud.version>
-        <spring-cloud-alibaba.version>2021.0.4.0</spring-cloud-alibaba.version>
+        <!-- https://github.com/alibaba/spring-cloud-alibaba/wiki/%E7%89%88%E6%9C%AC%E8%AF%B4%E6%98%8E -->
+        <spring-boot.version>2.6.13</spring-boot.version>
+        <spring-cloud.version>2021.0.5</spring-cloud.version>
+        <spring-cloud-alibaba.version>2021.0.5.0</spring-cloud-alibaba.version>
+        <!-- https://mvnrepository.com/artifact/org.apache.shiro/shiro-spring -->
         <shiro-spring.version>1.11.0</shiro-spring.version>
-        <druid.version>1.2.15</druid.version>
-        <mybatis.veresion>3.5.11</mybatis.veresion>
-        <mybatis-spring.version>3.0.1</mybatis-spring.version>
-        <!-- 3.0.1 对应 Spring Boot 3.x，暂不升级 -->
-        <mybatis-spring-boot-starter.version>2.3.0</mybatis-spring-boot-starter.version>
+        <!-- https://mvnrepository.com/artifact/com.alibaba/druid -->
+        <druid.version>1.2.18</druid.version>
+        <!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
+        <mybatis.veresion>3.5.13</mybatis.veresion>
+        <!-- https://mvnrepository.com/artifact/org.mybatis/mybatis-spring -->
+        <mybatis-spring.version>2.1.1</mybatis-spring.version>
+        <!-- 3.x 对应 Spring Boot 3.x，暂不升级 -->
+        <!-- https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter -->
+        <mybatis-spring-boot-starter.version>2.3.1</mybatis-spring-boot-starter.version>
+        <!-- https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-boot-starter -->
         <mybatis-plus-boot-starter.vserion>3.5.3.1</mybatis-plus-boot-starter.vserion>
+        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-collections4 -->
         <commons-collections4.version>4.4</commons-collections4.version>
+        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-email -->
         <commons-email.version>1.5</commons-email.version>
+        <!-- https://mvnrepository.com/artifact/org.apache.velocity/velocity-engine-core -->
         <velocity.version>2.3</velocity.version>
+        <!-- https://mvnrepository.com/artifact/io.springfox/springfox-boot-starter -->
         <springfox.version>3.0.0</springfox.version>
-        <springdoc.version>1.6.14</springdoc.version>
-        <mybatis-generator-maven-plugin.version>1.4.1</mybatis-generator-maven-plugin.version>
+        <!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-ui -->
+        <springdoc.version>1.7.0</springdoc.version>
+        <!-- https://mvnrepository.com/artifact/org.mybatis.generator/mybatis-generator-maven-plugin -->
+        <mybatis-generator-maven-plugin.version>1.4.2</mybatis-generator-maven-plugin.version>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
     </properties>
 

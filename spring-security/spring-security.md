@@ -128,7 +128,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 | @RolesAllowed<br/>@PermitAll<br/>@DenyAll | @EnableGlobalMethodSecurity(prePostEnabled = true) | Yes   | No        |
 | @Secured                                  | @EnableGlobalMethodSecurity(jsr250Enabled = true)  | No    | No        |
 ---
----
 ## <a id="Against">[防止漏洞攻击](https://docs.spring.io/spring-security/reference/servlet/exploits/index.html)</a>
 ### [跨站请求伪造 CSRF (Cross-Site Request Forgery)](https://docs.spring.io/spring-security/reference/servlet/exploits/csrf.html)
 1. 有状态 API
